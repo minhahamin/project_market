@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>메인</title>
+</head>
+
+<style>
+    body{
+       margin: 0 auto;
+    }
+    .header {
+        text-align: right;
+        color: grey;
+        font-size: 13px;
+        margin: 10px 65px;
+    }
+    .header a {
+        margin-right: 10px;
+    }
+
+   .navbar.scrolled {
+        position: fixed;
+        padding: 18px;
+        margin-left: -5px;
+        left: 0;
+        width: 100%;
+        margin-top: -40px;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        z-index: 1000;
+    }
+    .navbar{
+        display : flex;
+        width: 1300px;
+        margin-left : 110px;
+        background-color: #fff;
+        position: relative; /* z-index를 위해 필요 */
+        z-index: 1000; /* 높은 z-index 값으로 설정 */
+
+        justify-content: space-between;
+        transition: background-color 0.3s, box-shadow 0.3s; /* 부드러운 전환 효과 */
+
+
+    }
+    .navbar img{
+        width: 113px;
+        height: 20px;
+    }
+    .dropdown{
+        cursor: pointer;
+    }
+    /* 상위 ul 태그에 대한 스타일 */
+    .navbar > ul {
+        list-style-type: none; /* 리스트 불릿 제거 */
+        padding: 0; /* 기본 패딩 제거 */
+        margin: 0; /* 기본 마진 제거 */
+        display: flex; /* Flexbox 사용 */
+        justify-content: center; /* 중앙 정렬 */
+    }
+
+    /* li 태그에 대한 스타일 */
+    .navbar > ul > li {
+        position: relative; /* 드롭다운 메뉴 위치 설정을 위함 */
+        margin: 0 65px; /* 좌우 마진 추가 */
+        list-style-type: none; /* 리스트 불릿 제거 */
+    }
+
+    /* 드롭다운 메뉴 기본 스타일 */
+    .navbar li ul {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 175px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.15);
+        padding: 0; /* 패딩 제거 */
+        margin: 0; /* 마진 제거 */
+        list-style-type: none; /* 리스트 불릿 제거 */
+    }
+
+    /* 드롭다운 메뉴 항목 스타일 */
+    .navbar li ul li a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        background-color: #eeeee;
+    }
+
+    /* 드롭다운 메뉴 항목 호버 스타일 */
+    .navbar li ul li a:hover {
+        background-color: #FFCD4B;
+        color: white;
+    }
+
+    /* 상위 메뉴 항목에 마우스를 올렸을 때 드롭다운 메뉴 표시 */
+    .navbar > ul > li:hover > ul {
+        display: block;
+    }
+
+
+
+    .carousel {
+    position: relative;
+    max-width: 1300px;
+    margin: auto;
+    overflow: hidden;
+    margin-left : 70px;
+    margin-top: 20px;
+}
+
+.carousel-images img {
+    width: 100%;
+    display: none;
+}
+
+.carousel-images img.active {
+    display: block;
+}
+
+button.prev, button.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+button.prev {
+    left: 10px;
+}
+
+button.next {
+    right: 10px;
+}
+
+.container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 50px; /* Adjust the gap between the cards */
+}
+
+.card {
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 40px;
+  padding: 20px;
+  width: 600px; /* Adjust card width as needed */
+
+}
+
+.card h2 {
+  color: black;
+  margin-top: 0;
+  margin-left: 10px;
+}
+
+.content {
+  color: grey;
+  margin-left: 10px;
+}
+.add-button{
+     margin-left: 450px;
+     width: 40px;
+     height: 40px;
+     border: none;
+     border-radius: 30px;
+     background-color: #FFCD4B;
+     color: white;
+     font-size: 20px;
+     font-weight: bold;
+ }
+
+
+</style>
+
+<body>
+<div class="header">
+    <a>로그인</a>
+    <a>고객센터</a>
+    <a>채용안내</a>
+    <a>전자계약시스템</a>
+</div>
+
+<div class="navbar">
+        <img src="https://www.emart24.co.kr/assets/assets/imgs/logo.png" alt="세이치즈">
+        <ul class="dropdown">
+            <li>세이치즈마켓 소개
+                <ul>
+                    <li><a href="#">브랜드 스토리</a></li>
+                    <li><a href="#">브랜드 리소스 센터</a></li>
+                    <li><a href="#">브랜드 갤러리</a></li>
+                </ul>
+            </li>
+            <li>상품
+                <ul>
+                    <li><a href="event.html">행사 상품</a></li>
+                    <li><a href="#">차별화 상품</a></li>
+                    <li><a href="#">Fresh Food</a></li>
+                </ul>
+            </li>
+            <li>매장찾기
+            </li>
+            <li>서비스
+                <ul>
+                    <li><a href="#">App 서비스</a></li>
+                    <li><a href="#">생활 서비스</a></li>
+                    <li><a href="#">제휴 서비스</a></li>
+                </ul>
+            </li>
+            <li>이벤트
+                <ul>
+                    <li><a href="#">진행중인 이벤트</a></li>
+                </ul>
+            </li>
+            <li>창업안내
+                <ul>
+                    <li><a href="#">세이치즈마켓 특징</a></li>
+                    <li><a href="#">창업 가이드</a></li>
+                    <li><a href="#">창업 설명회</a></li>
+                    <li><a href="#">창업 상담</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+<div class="carousel">
+    <div class="carousel-images">
+        <img src="https://www.emart24.co.kr/image/NTYxNzc=">
+        <img src="https://www.emart24.co.kr/image/NTgxODI=">
+        <img src="https://www.emart24.co.kr/image/NTgyNTM=">
+        <img src="https://www.emart24.co.kr/image/NTgxMjM=">
+        <img src="https://www.emart24.co.kr/image/NTgxMDg=">
+    </div>
+    <button class="prev"> < </button>
+    <button class="next"> > </button>
+</div>
+
+<div class="container">
+    <div class="card">
+        <div style="display:flex;">
+        <h2>공지사항</h2> <button class="add-button">+</button>
+        </div>
+        <div class="content">
+            <p>기준의 설명 공고</p>
+            <p>2022년 (제 17회) 검사공고</p>
+            <p>개인정보처리방침 개정 안내(2023.01.21)</p>
+        </div>
+
+    </div>
+
+    <div class="card">
+        <div style="display:flex;">
+        <h2>보도자료</h2> <button class="add-button">+</button>
+        </div>
+            <div class="content">
+            <p>이마트24, 대한민국 팝업점 최초 시작!</p>
+            <p>이마트24, 청소년의 모바일앱 오스틴... </p>
+            <p>이마트24 X bhc, '오 사모님 소통' 파트너십...</p>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.carousel-images img');
+    const totalImages = images.length;
+    const intervalTime = 5000; // 5초 간격으로 설정
+    let autoSlide;
+
+document.querySelector('.prev').addEventListener('click', function() {
+    images[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex - 1 + totalImages) % totalImages;
+    images[currentIndex].classList.add('active');
+});
+
+document.querySelector('.next').addEventListener('click', function() {
+    images[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % totalImages;
+    images[currentIndex].classList.add('active');
+});
+
+// 초기 이미지 활성화
+images[currentIndex].classList.add('active');
+
+
+
+
+    // 이미지 전환 함수
+function changeImage(next = true) {
+    images[currentIndex].classList.remove('active');
+    currentIndex = next ? (currentIndex + 1) % totalImages : (currentIndex - 1 + totalImages) % totalImages;
+    images[currentIndex].classList.add('active');
+}
+
+// 자동 슬라이드 시작 함수
+function startAutoSlide() {
+    autoSlide = setInterval(() => changeImage(), intervalTime);
+}
+
+// 자동 슬라이드 정지 함수
+function stopAutoSlide() {
+    clearInterval(autoSlide);
+}
+
+// 이전, 다음 버튼 이벤트 리스너
+document.querySelector('.prev').addEventListener('click', function() {
+    changeImage(false);
+    stopAutoSlide();
+    startAutoSlide();
+});
+
+document.querySelector('.next').addEventListener('click', function() {
+    changeImage();
+    stopAutoSlide();
+    startAutoSlide();
+});
+
+// 초기 이미지 활성화 및 자동 슬라이드 시작
+images[currentIndex].classList.add('active');
+startAutoSlide();
+
+
+
+    // 스크롤 이벤트 리스너 추가
+    window.addEventListener('scroll', function() {
+  var navbar = document.querySelector('.navbar');
+  // 스크롤 위치에 따라 .navbar의 클래스를 토글
+  if (window.pageYOffset > 100) { // 100px 이상 스크롤 되었을 때
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+
+
+</script>
+
+
+</body>
+
+<footer style="background-color: #F4F4F4; height: 100%;">
+    <div style="width: 1000px; margin-left: 280px; padding: 30px;">
+        <div style="color: grey;">
+        개인정보 처리방침 |
+        영상정보기기 운영 관리 방침 |
+        이용약관 |
+        회사소식 |
+        고객센터 |
+        CSR경영 |
+        사이트맵 |
+
+        패밀리사이트 +
+        </div>
+        <br>
+        <div style="display: flex; color: grey;">
+        (주) 세이치즈 마켓
+            <div style="margin-left: 500px;">
+                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsYutube.png"></button>
+                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsInsta.png">
+                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsFacebook.png">
+                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsTiktok.png">
+            </div>
+        </div>
+        <br>
+        <br>
+        <div style="color: grey;">
+        대표이사: 홍민하 / 사업자등록번호: 100-00-00000 <br>
+        서울특별시 성동구 성수동 2가 281-4 푸조비즈타워 / <br>
+        고객센터: 02-5678-1234 / Fax: 02-1234-5678 <br>
+        COPYRIGHT (C) EMART24.ALL RIGHT RESERVED <br>
+        </div>
+    </div>
+</footer>
+
+</html>

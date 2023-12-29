@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+</head>
+<style>
+    body{
+         width: 1440px; /* 고정 너비 설정 */
+         margin: 20px auto 0; /* 상단 여백 20px, 좌우 자동 여백, 하단 여백 0 */
+         display: block; /* 블록 레벨 요소로 설정 */
+         padding: 0;
+     }
+
+      body{
+       margin: 0 auto;
+    }
+    .header {
+        text-align: right;
+        color: grey;
+        font-size: 13px;
+        margin: 10px 65px;
+    }
+    .header a {
+        margin-right: 10px;
+    }
+
+   .navbar.scrolled {
+        position: fixed;
+        padding: 18px;
+        margin-left: -5px;
+        left: 0;
+        width: 100%;
+        margin-top: -40px;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        z-index: 1000;
+    }
+    .navbar{
+        display : flex;
+        width: 1300px;
+        margin-left : 110px;
+        background-color: #fff;
+        position: relative; /* z-index를 위해 필요 */
+        z-index: 1000; /* 높은 z-index 값으로 설정 */
+
+        justify-content: space-between;
+        transition: background-color 0.3s, box-shadow 0.3s; /* 부드러운 전환 효과 */
+
+
+    }
+    .navbar img{
+        width: 113px;
+        height: 20px;
+    }
+    .dropdown{
+        cursor: pointer;
+    }
+    /* 상위 ul 태그에 대한 스타일 */
+    .navbar > ul {
+        list-style-type: none; /* 리스트 불릿 제거 */
+        padding: 0; /* 기본 패딩 제거 */
+        margin: 0; /* 기본 마진 제거 */
+        display: flex; /* Flexbox 사용 */
+        justify-content: center; /* 중앙 정렬 */
+    }
+
+    /* li 태그에 대한 스타일 */
+    .navbar > ul > li {
+        position: relative; /* 드롭다운 메뉴 위치 설정을 위함 */
+        margin: 0 65px; /* 좌우 마진 추가 */
+        list-style-type: none; /* 리스트 불릿 제거 */
+    }
+
+    /* 드롭다운 메뉴 기본 스타일 */
+    .navbar li ul {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 175px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.15);
+        padding: 0; /* 패딩 제거 */
+        margin: 0; /* 마진 제거 */
+        list-style-type: none; /* 리스트 불릿 제거 */
+    }
+
+    /* 드롭다운 메뉴 항목 스타일 */
+    .navbar li ul li a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        background-color: #eeeee;
+    }
+
+    /* 드롭다운 메뉴 항목 호버 스타일 */
+    .navbar li ul li a:hover {
+        background-color: #FFCD4B;
+        color: white;
+    }
+
+    /* 상위 메뉴 항목에 마우스를 올렸을 때 드롭다운 메뉴 표시 */
+    .navbar > ul > li:hover > ul {
+        display: block;
+    }
+
+
+
+    .carousel {
+    position: relative;
+    max-width: 1300px;
+    margin: auto;
+    overflow: hidden;
+    margin-left : 70px;
+    margin-top: 20px;
+}
+
+.carousel-images img {
+    width: 100%;
+    display: none;
+}
+
+.carousel-images img.active {
+    display: block;
+}
+
+button.prev, button.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+button.prev {
+    left: 10px;
+}
+
+button.next {
+    right: 10px;
+}
+
+.container {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 50px; /* Adjust the gap between the cards */
+}
+
+.card {
+  background: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 40px;
+  padding: 20px;
+  width: 600px; /* Adjust card width as needed */
+
+}
+
+.card h2 {
+  color: black;
+  margin-top: 0;
+  margin-left: 10px;
+}
+
+.content {
+  color: grey;
+  margin-left: 10px;
+}
+.add-button{
+     margin-left: 450px;
+     width: 40px;
+     height: 40px;
+     border: none;
+     border-radius: 30px;
+     background-color: #FFCD4B;
+     color: white;
+     font-size: 20px;
+     font-weight: bold;
+ }
+     .join span {
+        width: 150px; /* 레이블의 너비 */
+        display: inline-block;
+    }
+    .joinus{
+        margin-left: 670px;
+    }
+     .join{
+        margin-left: 20px;
+        border-bottom: 1px solid #EEEEEE;
+        width: 1400px;
+        height: 70px;
+        line-height: 70px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px; /* 각 입력 필드 사이의 간격 */
+     }
+     .join-submit{
+        margin-top: 50px;
+        border: none;
+        border-radius: 50px;
+        background: #FFCD4B;
+        color: white;
+        width: 290px;
+        height: 60px;
+        font-size: 18px;
+        font-weight: bold;
+        margin-left: 590px;
+        margin-bottom: 100px;
+     }
+     .join-input{
+        margin-left: 100px;
+        margin-right: 10px;
+        height: 30px;
+        width: 300px;
+     }
+
+
+</style>
+<body>
+<div class="header">
+    <a>고객센터</a>
+    <a>채용안내</a>
+    <a>전자계약시스템</a>
+</div>
+
+<div class="navbar">
+    <img src="https://www.emart24.co.kr/assets/assets/imgs/logo.png" alt="세이치즈">
+    <ul class="dropdown">
+        <li>세이치즈마켓 소개
+            <ul>
+                <li><a href="#">브랜드 스토리</a></li>
+                <li><a href="#">브랜드 리소스 센터</a></li>
+                <li><a href="#">브랜드 갤러리</a></li>
+            </ul>
+        </li>
+        <li>상품
+            <ul>
+                <li><a href="event.html">행사 상품</a></li>
+                <li><a href="#">차별화 상품</a></li>
+                <li><a href="#">Fresh Food</a></li>
+            </ul>
+        </li>
+        <li>매장찾기
+        </li>
+        <li>서비스
+            <ul>
+                <li><a href="#">App 서비스</a></li>
+                <li><a href="#">생활 서비스</a></li>
+                <li><a href="#">제휴 서비스</a></li>
+            </ul>
+        </li>
+        <li>이벤트
+            <ul>
+                <li><a href="#">진행중인 이벤트</a></li>
+            </ul>
+        </li>
+        <li>창업안내
+            <ul>
+                <li><a href="#">세이치즈마켓 특징</a></li>
+                <li><a href="#">창업 가이드</a></li>
+                <li><a href="#">창업 설명회</a></li>
+                <li><a href="#">창업 상담</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+        <div>
+            <div class="joinus"><h2>회원가입</h2></div><hr>
+            <form action="/member/join" method="post">
+                <div class="join">
+                    <span>아이디 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="text" name="userid">(영문소문자/숫자, 4~16자)</div>
+                <div class="join">
+                    <span>비밀번호 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="password" name="userpw">  (영문 대소문자/숫자/특수문자 중 3가지 이상 조합, 8자~16자)</div>
+                <!--   <div class="join">
+                       <span>비밀번호 확인 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="password" name="userpw"></div>-->
+                <div class="join">
+                    <span>이름 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="text" name="username"></div>
+                <div class="join">
+                    <span>주소 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="text" name="address"></div>
+                <div class="join">
+                    <span>휴대전화 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="text" name="pnum"></div>
+                <div class="join">
+                    <span>이메일 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="text" name="email"></div>
+                <div class="join">
+                    <span>생년월일 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="date" name="birth"> (EX : 1999-01-01)</div>
+                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
+                <input class="join-submit" type="submit" value="회원가입">
+
+            </form>
+        </div>
+    <br>
+
+
+
+
+</body>
+
+<footer style="background-color: #F4F4F4; height: 100%;">
+    <div style="width: 1000px; margin-left: 280px; padding: 30px;">
+        <div style="color: grey;">
+            개인정보 처리방침 |
+            영상정보기기 운영 관리 방침 |
+            이용약관 |
+            회사소식 |
+            고객센터 |
+            CSR경영 |
+            사이트맵 |
+
+            패밀리사이트 +
+        </div>
+        <br>
+        <div style="display: flex; color: grey;">
+            (주) 세이치즈 마켓
+            <div style="margin-left: 500px;">
+                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsYutube.png"></button>
+                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsInsta.png">
+                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsFacebook.png">
+                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsTiktok.png">
+            </div>
+        </div>
+        <br>
+        <br>
+        <div style="color: grey;">
+            대표이사: 홍민하 / 사업자등록번호: 100-00-00000 <br>
+            서울특별시 성동구 성수동 2가 281-4 푸조비즈타워 / <br>
+            고객센터: 02-5678-1234 / Fax: 02-1234-5678 <br>
+            COPYRIGHT (C) EMART24.ALL RIGHT RESERVED <br>
+        </div>
+    </div>
+</footer>
+</html>

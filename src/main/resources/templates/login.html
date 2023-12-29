@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 폼</title>
+</head>
+<style>
+
+    .body{
+        margin:0 auto;
+        width:400px;
+    }
+    .logo{
+        width: 190px;
+        height: 24px;
+        margin-left: 100px;
+    }
+    .kakao{
+        width: 400px;
+    }
+    .benefit{
+        width: 400px;
+    }
+    /* 탭 컨테이너 스타일 */
+    .tabs {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+
+    }
+
+    /* 각 탭 항목 스타일 */
+    .tabs li {
+        float: left;
+    }
+
+    /* 버튼 스타일 */
+    .tabs button {
+        display: block;
+        color: black;
+        padding: 10px 20px;
+        border: none;
+        outline: none;
+        text-align: center;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    /* 호버 효과 */
+    .tabs button:hover {
+        background-color: black;
+        color: white;
+    }
+
+    /* 활성화된 탭 스타일 */
+    .tabs button.active {
+        background-color: #ccc;
+    }
+    .original{
+        width: 150px;
+        height: 40px;
+        border-radius: 20px;
+        border: none;
+        background-color: #F5F7F9;
+    }
+    .original:hover{
+        background-color: black;
+        color: white;
+    }
+    .original1{
+        margin-left: 45px;
+    }
+    .original-login{
+        background-color: #F5F7F9;
+        border: none;
+        width: 380px;
+        height: 50px;
+        margin-top: 10px;
+        border-radius: 10px;
+    }
+    .delivery{
+        width: 150px;
+        height: 40px;
+        border-radius: 20px;
+        border: none;
+        background-color: #F5F7F9;
+    }
+    .delivery:hover{
+        background-color: black;
+        color: white;
+    }
+    .form{
+        margin-top: 10px;
+    }
+    .id-check{
+        width: 24px;
+        height: 24px;
+    }
+    .id-input, .pw-input{
+        width: 380px;
+        height: 50px;
+        border: none; /* 기본 테두리 제거 */
+        border-bottom: 1px solid black; /* 밑줄만 추가 */
+        outline: none; /* 선택 시 외곽선 제거 */
+        margin-top: 10px;
+    }
+    .id-check{
+        margin-top: 20px;
+    }
+    .original-login{
+        margin-bottom: 15px;
+    }
+    .joining{
+        margin-left: 100px;
+        color: grey;
+        font-weight: bold;
+    }
+    .find-id, .find-pw{
+        color: grey;
+    }
+    .naver, .facebook{
+        width: 48px;
+        height: 48px;
+    }
+    .naver{
+        margin-left: 150px;
+    }
+
+</style>
+<body>
+<div class="body">
+    <div class="main">
+        <img class="logo" src="http://192.168.70.200/minvely logo.jpg">
+        <h1>로그인</h1>
+        <p>아이디와 비밀번호 입력하기 귀찮으시죠?<br>
+            1초 회원가입으로 입력없이 간편하게 로그인하세요.</p>
+        <img class="kakao" src="https://t1.daumcdn.net/cfile/tistory/99BEE8465C3D7D1214">
+        <p>-----------------------------또는---------------------------</p>
+    </div>
+    <div>
+        <div class="original1">
+            <ul class="tabs">
+                <li><button class="original tab-button" data-target="tab1">기존 회원이세요?</button></li>
+                <li><button class="delivery tab-button" data-target="tab2">비회원 배송조회</button></li>
+            </ul>
+        </div>
+        <!-- 탭 내용 -->
+        <div id="tab1" class="tab-content">
+            <form class="form" action="/member/login" method="post">
+                <input class="id-input" type="text" name="userid" placeholder="아이디"> <br>
+                <input class="pw-input" type="password" name="userpw" placeholder="비밀번호"> <br>
+                <input class="id-check" type="checkbox"> 아이디 저장 <br>
+                <button class="original-login" type="submit"> 기존 회원 로그인</button><br>
+                <a class="find-id"> 아이디 찾기 | </a>
+                <a class="find-pw"> 비밀번호 찾기 </a>            <a class="joining"> 회원가입</a>
+            </form>
+            <p>-----------------------------또는---------------------------</p></div>
+        <div id="tab2" class="tab-content" style="display:none;"><form class="form">
+            <input class="id-input" type="text" name="" placeholder="주문자명"> <br>
+            <input class="pw-input" type="password" name="" placeholder="주문번호"> <br>
+            <input class="pw-input" type="password" placeholder="비회원 주문 비밀번호">  <br>
+            <button class="original-login" type="submit" > 비회원 주문조회</button>
+        </form>
+            <p>-----------------------------또는---------------------------</p>
+        </div>
+
+    </div>
+    <div>
+        <img class="naver" src="https://clova-phinf.pstatic.net/MjAxODAzMjlfOTIg/MDAxNTIyMjg3MzM3OTAy.WkiZikYhauL1hnpLWmCUBJvKjr6xnkmzP99rZPFXVwgg.mNH66A47eL0Mf8G34mPlwBFKP0nZBf2ZJn5D4Rvs8Vwg.PNG/image.png">
+        <img class="facebook" src="https://web.kangnam.ac.kr/comm/cmnFile/image.do?encSvrFileNm=6864f985ff2be489ee6e2798891af6490d928fe6e355fa876e12480e7f57a641d57058270208ed8030b85ab5471098272df67aae520f14409000018cfb9d93f7">
+
+        <p>로그인까지 한 번에, <br>
+            구매가 빨라지는 <b> 1초 회원가입 </b> 이란? </p>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var tabButtons = document.querySelectorAll('.tab-button');
+        var tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                // 모든 탭 내용 숨기기
+                tabContents.forEach(function(content) {
+                    content.style.display = 'none';
+                });
+
+                // 활성화된 탭의 내용 보이기
+                var target = this.getAttribute('data-target');
+                document.getElementById(target).style.display = 'block';
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
+<footer style="background-color: #F4F4F4; height: 100%;">
+    <div style="width: 1000px; margin-left: 280px; padding: 30px;">
+        <div style="color: grey;">
+            개인정보 처리방침 |
+            영상정보기기 운영 관리 방침 |
+            이용약관 |
+            회사소식 |
+            고객센터 |
+            CSR경영 |
+            사이트맵 |
+
+            패밀리사이트 +
+        </div>
+        <br>
+        <div style="display: flex; color: grey;">
+            (주) 세이치즈 마켓
+            <div style="margin-left: 500px;">
+                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsYutube.png"></button>
+                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsInsta.png">
+                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsFacebook.png">
+                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsTiktok.png">
+            </div>
+        </div>
+        <br>
+        <br>
+        <div style="color: grey;">
+            대표이사: 홍민하 / 사업자등록번호: 100-00-00000 <br>
+            서울특별시 성동구 성수동 2가 281-4 푸조비즈타워 / <br>
+            고객센터: 02-5678-1234 / Fax: 02-1234-5678 <br>
+            COPYRIGHT (C) EMART24.ALL RIGHT RESERVED <br>
+        </div>
+    </div>
+</footer>
