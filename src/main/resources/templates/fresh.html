@@ -20,83 +20,93 @@
   }
 
  .navbar.scrolled {
-      position: fixed;
-      padding: 18px;
-      margin-left: -5px;
-      left: 0;
-      width: 100%;
-      margin-top: -40px;
-      background-color: #fff;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      z-index: 1000;
-  }
-  .navbar{
-      display : flex;
-      width: 1300px;
-      margin-left : 110px;
-      background-color: #fff;
-      position: relative; /* z-index를 위해 필요 */
-      z-index: 1000; /* 높은 z-index 값으로 설정 */
+        position: fixed;
+        margin-left: -5px;
+        line-height: 50px;
+        left: 0;
+        width: 100%;
+        height: 100px;
+        margin-top: -40px;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        z-index: 1000;
+    }
+    .navbar{
+        display : flex;
+        width: 1300px;
+        height: 80px;
+        line-height: 50px;
+        margin-left : 110px;
+        background-color: transparent;
+        position: relative; /* z-index를 위해 필요 */
+        z-index: 1000; /* 높은 z-index 값으로 설정 */
 
-      justify-content: space-between;
-      transition: background-color 0.3s, box-shadow 0.3s; /* 부드러운 전환 효과 */
+        justify-content: space-between;
+        transition: background-color 0.3s, box-shadow 0.3s; /* 부드러운 전환 효과 */
 
 
-  }
-  .navbar img{
-      width: 113px;
-      height: 20px;
-  }
-  .dropdown{
-      cursor: pointer;
-  }
-  /* 상위 ul 태그에 대한 스타일 */
-  .navbar > ul {
-      list-style-type: none; /* 리스트 불릿 제거 */
-      padding: 0; /* 기본 패딩 제거 */
-      margin: 0; /* 기본 마진 제거 */
-      display: flex; /* Flexbox 사용 */
-      justify-content: center; /* 중앙 정렬 */
-  }
+    }
+    .navbar img{
+        width: 190px;
+        height: 130px;
+        margin-top: -11px;
+    }
+    .dropdown{
+        cursor: pointer;
+    }
+    /* 상위 ul 태그에 대한 스타일 */
+    .navbar > ul {
+        list-style-type: none; /* 리스트 불릿 제거 */
+        display: flex; /* Flexbox 사용 */
+        justify-content: center; /* 중앙 정렬 */
+        padding: 0;
+    }
 
-  /* li 태그에 대한 스타일 */
-  .navbar > ul > li {
-      position: relative; /* 드롭다운 메뉴 위치 설정을 위함 */
-      margin: 0 65px; /* 좌우 마진 추가 */
-      list-style-type: none; /* 리스트 불릿 제거 */
-  }
+    /* li 태그에 대한 스타일 */
+    .navbar > ul > li {
+        position: relative; /* 드롭다운 메뉴 위치 설정을 위함 */
+        margin: 0 60px; /* 좌우 마진 추가 */
+        list-style-type: none; /* 리스트 불릿 제거 */
 
-  /* 드롭다운 메뉴 기본 스타일 */
-  .navbar li ul {
-      display: none;
-      position: absolute;
-      background-color: #f9f9f9;
-      min-width: 175px;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.15);
-      padding: 0; /* 패딩 제거 */
-      margin: 0; /* 마진 제거 */
-      list-style-type: none; /* 리스트 불릿 제거 */
-  }
+    }
 
-  /* 드롭다운 메뉴 항목 스타일 */
-  .navbar li ul li a {
-      color: black;
-      padding: 12px 16px;
-      text-decoration: none;
-      display: block;
-      background-color: #eeeee;
-  }
+    /* 드롭다운 메뉴 기본 스타일 */
+    .navbar li ul {
+        display: none;
+        position: absolute;
+        top: 100%; /* .navbar의 하단에 위치하도록 설정 */
+        background-color: #f9f9f9;
+        min-width: 175px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.15);
+        padding: 0;
+        margin:0;
+        list-style-type: none; /* 리스트 불릿 제거 */
+    }
+    .navbar ul li ul li a {
+        line-height: 30px;
+        height: 30px;
+    }
 
-  /* 드롭다운 메뉴 항목 호버 스타일 */
-  .navbar li ul li a:hover {
-      background-color: #FFCD4B;
-      color: white;
-  }
 
-  /* 상위 메뉴 항목에 마우스를 올렸을 때 드롭다운 메뉴 표시 */
-  .navbar > ul > li:hover > ul {
-      display: block;
-  }
+    /* 드롭다운 메뉴 항목 스타일 */
+    .navbar li ul li a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        background-color: #eeeee;
+    }
+
+    /* 드롭다운 메뉴 항목 호버 스타일 */
+    .navbar li ul li a:hover {
+        background-color: #FFCD4B;
+        color: white;
+    }
+
+    /* 상위 메뉴 항목에 마우스를 올렸을 때 드롭다운 메뉴 표시 */
+    .navbar > ul > li:hover > ul {
+        display: block;
+    }
 
 
 
@@ -148,7 +158,7 @@ object-fit: cover; /* 이미지가 셀에 꽉 차도록 설정 */
 </div>
 
 <div class="navbar">
-  <img src="https://www.emart24.co.kr/assets/assets/imgs/logo.png" alt="세이치즈">
+  <img src="http://192.168.70.200/세이치즈.png" alt="세이치즈">
   <ul class="dropdown">
     <li>세이치즈마켓 소개
       <ul>
@@ -189,7 +199,7 @@ object-fit: cover; /* 이미지가 셀에 꽉 차도록 설정 */
   </ul>
 </div>
 
-<div style="background-color: #F9FAFB;">
+<div style="background-color: #F9FAFB; padding: 10px;">
 <h1 style="margin-left: 100px;">Fresh Food</h1>
 <span style="margin-left: 100px;">세이치즈마켓의 신선하고 다양한 Fresh Food를 소개합니다.</span>
 <div>
