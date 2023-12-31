@@ -1,7 +1,7 @@
-package com.minha.mart.ProductDTO;
+package com.minha.mart.DTO;
 
 
-import com.minha.mart.ProductEntity.ProductEntity;
+import com.minha.mart.Entity.ProductEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

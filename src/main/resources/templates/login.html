@@ -12,7 +12,7 @@
     }
     .logo{
         width: 190px;
-        height: 24px;
+        height: 100px;
         margin-left: 100px;
     }
     .kakao{
@@ -153,7 +153,7 @@
                 <input class="id-check" type="checkbox"> 아이디 저장 <br>
                 <button class="original-login" type="submit"> 기존 회원 로그인</button><br>
                 <a class="find-id"> 아이디 찾기 | </a>
-                <a class="find-pw"> 비밀번호 찾기 </a>            <a class="joining"> 회원가입</a>
+                <a class="find-pw"> 비밀번호 찾기 </a>            <a class="joining" th:href="@{/member/join}"> 회원가입</a>
             </form>
             <p>-----------------------------또는---------------------------</p></div>
         <div id="tab2" class="tab-content" style="display:none;"><form class="form">
@@ -192,6 +192,23 @@
                 document.getElementById(target).style.display = 'block';
             });
         });
+    });
+
+
+
+
+<!--    관리자로그인-->
+    document.addEventListener('DOMContentLoaded', function () {
+        // 기존 탭 관련 스크립트...
+
+        var loginForm = document.getElementById('loginForm');
+        loginForm.onsubmit = function(event) {
+            var username = document.getElementsByName('userid')[0].value;
+            if (username === 'admin') {
+                event.preventDefault(); // 기본 폼 제출 방지
+                window.location.href = '/admin'; // 관리자 페이지로 리디렉션
+            }
+        };
     });
 </script>
 

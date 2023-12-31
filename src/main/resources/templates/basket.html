@@ -1,18 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>회원가입</title>
+    <title>Title</title>
 </head>
 <style>
     body{
-         width: 1440px; /* 고정 너비 설정 */
-         margin: 20px auto 0; /* 상단 여백 20px, 좌우 자동 여백, 하단 여백 0 */
-         display: block; /* 블록 레벨 요소로 설정 */
-         padding: 0;
-     }
-
-      body{
        margin: 0 auto;
     }
     .header {
@@ -24,13 +17,17 @@
     .header a {
         margin-right: 10px;
     }
-
-   .navbar.scrolled {
+    .right-align {
+        display: inline-block; /* 요소들을 가로로 나란히 배치 */
+        margin-left: 10px; /* 요소들 사이의 간격 조절 (원하는 크기로 조절) */
+    }
+.navbar.scrolled {
         position: fixed;
-        padding: 18px;
         margin-left: -5px;
+        line-height: 50px;
         left: 0;
         width: 100%;
+        height: 100px;
         margin-top: -40px;
         background-color: #fff;
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -39,8 +36,10 @@
     .navbar{
         display : flex;
         width: 1300px;
+        height: 80px;
+        line-height: 50px;
         margin-left : 110px;
-        background-color: #fff;
+        background-color: transparent;
         position: relative; /* z-index를 위해 필요 */
         z-index: 1000; /* 높은 z-index 값으로 설정 */
 
@@ -50,8 +49,9 @@
 
     }
     .navbar img{
-        width: 113px;
-        height: 20px;
+        width: 190px;
+        height: 130px;
+        margin-top: -11px;
     }
     .dropdown{
         cursor: pointer;
@@ -59,30 +59,36 @@
     /* 상위 ul 태그에 대한 스타일 */
     .navbar > ul {
         list-style-type: none; /* 리스트 불릿 제거 */
-        padding: 0; /* 기본 패딩 제거 */
-        margin: 0; /* 기본 마진 제거 */
         display: flex; /* Flexbox 사용 */
         justify-content: center; /* 중앙 정렬 */
+        padding: 0;
     }
 
     /* li 태그에 대한 스타일 */
     .navbar > ul > li {
         position: relative; /* 드롭다운 메뉴 위치 설정을 위함 */
-        margin: 0 65px; /* 좌우 마진 추가 */
+        margin: 0 60px; /* 좌우 마진 추가 */
         list-style-type: none; /* 리스트 불릿 제거 */
+
     }
 
     /* 드롭다운 메뉴 기본 스타일 */
     .navbar li ul {
         display: none;
         position: absolute;
+        top: 100%; /* .navbar의 하단에 위치하도록 설정 */
         background-color: #f9f9f9;
         min-width: 175px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.15);
-        padding: 0; /* 패딩 제거 */
-        margin: 0; /* 마진 제거 */
+        padding: 0;
+        margin:0;
         list-style-type: none; /* 리스트 불릿 제거 */
     }
+    .navbar ul li ul li a {
+        line-height: 30px;
+        height: 30px;
+    }
+
 
     /* 드롭다운 메뉴 항목 스타일 */
     .navbar li ul li a {
@@ -104,122 +110,66 @@
         display: block;
     }
 
-
-
-    .carousel {
-    position: relative;
-    max-width: 1300px;
-    margin: auto;
-    overflow: hidden;
-    margin-left : 70px;
-    margin-top: 20px;
-}
-
-.carousel-images img {
-    width: 100%;
-    display: none;
-}
-
-.carousel-images img.active {
-    display: block;
-}
-
-button.prev, button.next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    color: white;
-    font-weight: bold;
-    font-size: 30px;
-}
-
-button.prev {
-    left: 10px;
-}
-
-button.next {
-    right: 10px;
-}
-
-.container {
-  margin-top: 50px;
-  margin-bottom: 50px;
-  display: flex;
-  justify-content: center;
-  gap: 50px; /* Adjust the gap between the cards */
-}
-
-.card {
-  background: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 40px;
-  padding: 20px;
-  width: 600px; /* Adjust card width as needed */
-
-}
-
-.card h2 {
-  color: black;
-  margin-top: 0;
-  margin-left: 10px;
-}
-
-.content {
-  color: grey;
-  margin-left: 10px;
-}
-.add-button{
-     margin-left: 450px;
-     width: 40px;
-     height: 40px;
-     border: none;
-     border-radius: 30px;
-     background-color: #FFCD4B;
-     color: white;
-     font-size: 20px;
-     font-weight: bold;
- }
-     .join span {
-        width: 150px; /* 레이블의 너비 */
-        display: inline-block;
-    }
-    .joinus{
-        margin-left: 670px;
-    }
-     .join{
+    .basket{
         margin-left: 20px;
-        border-bottom: 1px solid #EEEEEE;
+        margin-bottom: 100px;
+        display: block;
+        justify-content: center;
+    }
+    .basket h2{
+        margin-left: 650px;
+    }
+    .basket-notice{
+        border: 2.5px dotted red;
         width: 1400px;
-        height: 70px;
-        line-height: 70px;
+        height: 192px;
         display: flex;
         align-items: center;
-        margin-bottom: 10px; /* 각 입력 필드 사이의 간격 */
-     }
-     .join-submit{
-        margin-top: 50px;
-        border: none;
-        border-radius: 50px;
-        background: #FFCD4B;
-        color: white;
-        width: 290px;
-        height: 60px;
-        font-size: 18px;
+        justify-content: center; /* 가운데 정렬 */
+        margin-bottom: 40px;
+    }
+    .basket-notice img, .basket-notice span {
+        margin: 0 20px; /* 양 옆 여백 추가 */
+        font-size: 14px;
+    }
+    .basket-notice img{
+        width: 80px;
+        height: 80px;
+    }
+    .basket-list2{
+        font-size: 15px;
         font-weight: bold;
-        margin-left: 590px;
-        margin-bottom: 100px;
-     }
-     .join-input{
-        margin-left: 100px;
-        margin-right: 10px;
-        height: 30px;
-        width: 300px;
-     }
-
-
+        margin:0 620px 100px;
+    }
+    .all-order{
+        background-color:#FED20B;
+        border: none;
+        font-size: 15px;
+        font-weight: bold;
+        width: 160px;
+        height: 50px;
+    }
+    .select-order{
+        background-color:#84868A;
+        border: none;
+        font-size: 15px;
+        font-weight: bold;
+        color: white;
+        width: 160px;
+        height: 50px;
+    }
+    .order-button{
+        margin-left: 545px;
+    }
+    .use{
+        border: 1px solid #D5D4D4;
+        width: 1400px;
+        margin-top: 20px;
+    }
+    .use1{
+        background-color: #FBFBFB;
+        border-bottom: 1px solid #D5D4D4;
+    }
 </style>
 <body>
 <div class="header">
@@ -238,10 +188,11 @@ button.next {
     <a>고객센터</a>
     <a>채용안내</a>
     <a>전자계약시스템</a>
+
 </div>
 
 <div class="navbar">
-    <img src="https://www.emart24.co.kr/assets/assets/imgs/logo.png" alt="세이치즈">
+    <img src="http://192.168.70.200/세이치즈.png" alt="세이치즈">
     <ul class="dropdown">
         <li>세이치즈마켓 소개
             <ul>
@@ -252,8 +203,8 @@ button.next {
         </li>
         <li>상품
             <ul>
-                <li><a href="event.html">행사 상품</a></li>
-                <li><a href="#">차별화 상품</a></li>
+                <li><a th:href="@{/goods/event}">행사 상품</a></li>
+                <li><a th:href="@{/goods/different}">차별화 상품</a></li>
                 <li><a href="#">Fresh Food</a></li>
             </ul>
         </li>
@@ -281,36 +232,55 @@ button.next {
         </li>
     </ul>
 </div>
-
-        <div>
-            <div class="joinus"><h2>회원가입</h2></div><hr>
-            <form action="/member/join" method="post">
-                <div class="join">
-                    <span>아이디 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="text" name="userid">(영문소문자/숫자, 4~16자)</div>
-                <div class="join">
-                    <span>비밀번호 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="password" name="userpw">  (영문 대소문자/숫자/특수문자 중 3가지 이상 조합, 8자~16자)</div>
-                <!--   <div class="join">
-                       <span>비밀번호 확인 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="password" name="userpw"></div>-->
-                <div class="join">
-                    <span>이름 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="text" name="username"></div>
-                <div class="join">
-                    <span>주소 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="text" name="address"></div>
-                <div class="join">
-                    <span>휴대전화 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="text" name="pnum"></div>
-                <div class="join">
-                    <span>이메일 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="text" name="email"></div>
-                <div class="join">
-                    <span>생년월일 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="date" name="birth"> (EX : 1999-01-01)</div>
-                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <input class="join-submit" type="submit" value="회원가입">
-
-            </form>
-        </div>
+<div class="basket">
+    <h2>장바구니</h2>
+    <div class="basket-notice">
+        <img src="http://192.168.70.200/세이치즈.png" alt="세이치즈">
+        <span> <br><br>
+            - 장바구니에 담은 상품들을 한꺼번에 주문 시 묶음 배송을 하실 수 있습니다. <br><br>
+            - 따로 따로 여러번 결제 시 중복 계산된 배송비는 3F 게시판으로 문의 주시면 환불 도와드립니다. </span>
+    </div>
     <br>
 
-
-
-
+    <div class="basket-list">
+        <div class="basket-list2">
+            장바구니가 비어있습니다. <br>
+        </div>
+        <div class="order-button">
+            <button class="all-order">전체상품 주문</button>
+            <button class="select-order">선택상품 주문</button>
+        </div>
+    </div>
+    <div class="use">
+        <div class="use1"><b>이용안내</b></div>
+        <div>장바구니 이용안내</div> <br>
+        <div>① 선택하신 상품의 수량을 변경하시려면 수량변경 후 [변경] 버튼을 누르시면 됩니다. <br>
+            ② [쇼핑계속하기] 버튼을 누르시면 쇼핑을 계속 하실 수 있습니다.<br>
+            ③ 장바구니와 관심상품을 이용하여 원하시는 상품만 주문하거나 관심상품으로 등록하실 수 있습니다.<br>
+            ④ 파일첨부 옵션은 동일상품을 장바구니에 추가할 경우 마지막에 업로드 한 파일로 교체됩니다.<br>
+            ⑤ 해외배송 상품과 국내배송 상품은 함께 결제하실 수 없으니 장바구니 별로 따로 결제해 주시기 바랍니다.<br>
+            ⑥ 해외배송 가능 상품의 경우 국내배송 장바구니에 담았다가 해외배송 장바구니로 이동하여 결제하실 수 있습니다.</div>
+        <br>
+        <div>무이자할부 이용안내</div> <br>
+        <div>① 상품별 무이자할부 혜택을 받으시려면 무이자할부 상품만 선택하여 [주문하기] 버튼을 눌러 주문/결제 하시면 됩니다.<br>
+            ② [전체 상품 주문] 버튼을 누르시면 장바구니의 구분없이 선택된 모든 상품에 대한 주문/결제가 이루어집니다.<br>
+            ③ 단, 전체 상품을 주문/결제하실 경우, 상품별 무이자할부 혜택을 받으실 수 없습니다.<br>
+            ④ 무이자할부 상품은 장바구니에서 별도 무이자할부 상품 영역에 표시되어, 무이자할부 상품 기준으로 배송비가 표시됩니다.<br>
+            ⑤ 실제 배송비는 함께 주문하는 상품에 따라 적용되오니 주문서 하단의 배송비 정보를 참고해주시기 바랍니다.</div>
+    </div>
+</div>
+<script>
+    // 스크롤 이벤트 리스너 추가
+    window.addEventListener('scroll', function() {
+  var navbar = document.querySelector('.navbar');
+  // 스크롤 위치에 따라 .navbar의 클래스를 토글
+  if (window.pageYOffset > 100) { // 100px 이상 스크롤 되었을 때
+    navbar.classList.add('scrolled');
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+});
+</script>
 </body>
 
 <footer style="background-color: #F4F4F4; height: 100%;">

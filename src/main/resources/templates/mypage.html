@@ -2,17 +2,10 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>회원가입</title>
+    <title>회원정보 수정</title>
 </head>
 <style>
     body{
-         width: 1440px; /* 고정 너비 설정 */
-         margin: 20px auto 0; /* 상단 여백 20px, 좌우 자동 여백, 하단 여백 0 */
-         display: block; /* 블록 레벨 요소로 설정 */
-         padding: 0;
-     }
-
-      body{
        margin: 0 auto;
     }
     .header {
@@ -24,13 +17,17 @@
     .header a {
         margin-right: 10px;
     }
-
-   .navbar.scrolled {
+    .right-align {
+        display: inline-block; /* 요소들을 가로로 나란히 배치 */
+        margin-left: 10px; /* 요소들 사이의 간격 조절 (원하는 크기로 조절) */
+    }
+.navbar.scrolled {
         position: fixed;
-        padding: 18px;
         margin-left: -5px;
+        line-height: 50px;
         left: 0;
         width: 100%;
+        height: 100px;
         margin-top: -40px;
         background-color: #fff;
         box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -39,8 +36,10 @@
     .navbar{
         display : flex;
         width: 1300px;
+        height: 80px;
+        line-height: 50px;
         margin-left : 110px;
-        background-color: #fff;
+        background-color: transparent;
         position: relative; /* z-index를 위해 필요 */
         z-index: 1000; /* 높은 z-index 값으로 설정 */
 
@@ -50,8 +49,9 @@
 
     }
     .navbar img{
-        width: 113px;
-        height: 20px;
+        width: 190px;
+        height: 130px;
+        margin-top: -11px;
     }
     .dropdown{
         cursor: pointer;
@@ -59,30 +59,36 @@
     /* 상위 ul 태그에 대한 스타일 */
     .navbar > ul {
         list-style-type: none; /* 리스트 불릿 제거 */
-        padding: 0; /* 기본 패딩 제거 */
-        margin: 0; /* 기본 마진 제거 */
         display: flex; /* Flexbox 사용 */
         justify-content: center; /* 중앙 정렬 */
+        padding: 0;
     }
 
     /* li 태그에 대한 스타일 */
     .navbar > ul > li {
         position: relative; /* 드롭다운 메뉴 위치 설정을 위함 */
-        margin: 0 65px; /* 좌우 마진 추가 */
+        margin: 0 60px; /* 좌우 마진 추가 */
         list-style-type: none; /* 리스트 불릿 제거 */
+
     }
 
     /* 드롭다운 메뉴 기본 스타일 */
     .navbar li ul {
         display: none;
         position: absolute;
+        top: 100%; /* .navbar의 하단에 위치하도록 설정 */
         background-color: #f9f9f9;
         min-width: 175px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.15);
-        padding: 0; /* 패딩 제거 */
-        margin: 0; /* 마진 제거 */
+        padding: 0;
+        margin:0;
         list-style-type: none; /* 리스트 불릿 제거 */
     }
+    .navbar ul li ul li a {
+        line-height: 30px;
+        height: 30px;
+    }
+
 
     /* 드롭다운 메뉴 항목 스타일 */
     .navbar li ul li a {
@@ -103,122 +109,82 @@
     .navbar > ul > li:hover > ul {
         display: block;
     }
+.mypage{
+      background-color: #F7F7F7;
+      width: 1440px;
+      height: 350px;
+   }
+   .mypage h2{
+      margin-left: 650px;
+      line-height: 30px;
+      padding-top: 15px;
+   }
+   .mypage img{
+     width: 70px;
+     height: 70px;
+     border-radius: 100px;
+     margin-left: 80px;
+     margin-top: 20px;
+   }
+   .mypage2{
+      width: 700px;
+      height: 250px;
+      background-color: white;
+      margin-left: 400px;
+      display: flex; /* Flexbox 레이아웃 적용 */
+      align-items: center; /* 세로 중앙 정렬 */
+   }
+  .container {
+        margin: 20px;
+    }
+    .customer-name, .allOrder, .points {
+        margin-bottom: 10px;
+    }
+  .allOrder, .points {
+        display: flex; /* 플렉스 컨테이너로 설정 */
+        align-items: center; /* 세로 중앙 정렬 */
+    }
+    .order-count, .points-value {
+        margin-left: 200px; /* 간격 추가 */
+    }
 
-
-
-    .carousel {
-    position: relative;
-    max-width: 1300px;
-    margin: auto;
-    overflow: hidden;
-    margin-left : 70px;
-    margin-top: 20px;
-}
-
-.carousel-images img {
-    width: 100%;
-    display: none;
-}
-
-.carousel-images img.active {
-    display: block;
-}
-
-button.prev, button.next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    color: white;
-    font-weight: bold;
-    font-size: 30px;
-}
-
-button.prev {
-    left: 10px;
-}
-
-button.next {
-    right: 10px;
-}
-
-.container {
-  margin-top: 50px;
-  margin-bottom: 50px;
-  display: flex;
-  justify-content: center;
-  gap: 50px; /* Adjust the gap between the cards */
-}
-
-.card {
-  background: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 40px;
-  padding: 20px;
-  width: 600px; /* Adjust card width as needed */
-
-}
-
-.card h2 {
-  color: black;
-  margin-top: 0;
-  margin-left: 10px;
-}
-
-.content {
-  color: grey;
-  margin-left: 10px;
-}
-.add-button{
-     margin-left: 450px;
-     width: 40px;
+   .customer-name{
+      font-size: 20px;
+      margin-right: 8px;
+   }
+   .wish button{
+     background-color: #FED20B;
+     border-radius: 20px;
+     font-size: 12px;
+     width: 120px;
      height: 40px;
      border: none;
-     border-radius: 30px;
-     background-color: #FFCD4B;
      color: white;
-     font-size: 20px;
-     font-weight: bold;
- }
-     .join span {
-        width: 150px; /* 레이블의 너비 */
-        display: inline-block;
+   }
+   .customer-update button{
+     background-color: #F4F4F4;
+     border-radius: 20px;
+     font-size: 12px;
+     width: 120px;
+     height: 40px;
+     border: none;
+   }
+   .addProduct button {
+    background-color: #FED20B;
+     border-radius: 20px;
+     font-size: 12px;
+     width: 120px;
+     height: 40px;
+     border: none;
+   }
+   .addProduct button a{
+      color: white;
+   }
+   .button-container {
+        display: flex; /* 플렉스박스 레이아웃 적용 */
+        justify-content: space-between; /* 버튼 사이의 공간을 균등하게 배분 */
+        margin-right: 50px;
     }
-    .joinus{
-        margin-left: 670px;
-    }
-     .join{
-        margin-left: 20px;
-        border-bottom: 1px solid #EEEEEE;
-        width: 1400px;
-        height: 70px;
-        line-height: 70px;
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px; /* 각 입력 필드 사이의 간격 */
-     }
-     .join-submit{
-        margin-top: 50px;
-        border: none;
-        border-radius: 50px;
-        background: #FFCD4B;
-        color: white;
-        width: 290px;
-        height: 60px;
-        font-size: 18px;
-        font-weight: bold;
-        margin-left: 590px;
-        margin-bottom: 100px;
-     }
-     .join-input{
-        margin-left: 100px;
-        margin-right: 10px;
-        height: 30px;
-        width: 300px;
-     }
-
 
 </style>
 <body>
@@ -238,10 +204,11 @@ button.next {
     <a>고객센터</a>
     <a>채용안내</a>
     <a>전자계약시스템</a>
+
 </div>
 
 <div class="navbar">
-    <img src="https://www.emart24.co.kr/assets/assets/imgs/logo.png" alt="세이치즈">
+    <img src="http://192.168.70.200/세이치즈.png" alt="세이치즈">
     <ul class="dropdown">
         <li>세이치즈마켓 소개
             <ul>
@@ -252,8 +219,8 @@ button.next {
         </li>
         <li>상품
             <ul>
-                <li><a href="event.html">행사 상품</a></li>
-                <li><a href="#">차별화 상품</a></li>
+                <li><a th:href="@{/goods/event}">행사 상품</a></li>
+                <li><a th:href="@{/goods/different}">차별화 상품</a></li>
                 <li><a href="#">Fresh Food</a></li>
             </ul>
         </li>
@@ -282,37 +249,24 @@ button.next {
     </ul>
 </div>
 
-        <div>
-            <div class="joinus"><h2>회원가입</h2></div><hr>
-            <form action="/member/join" method="post">
-                <div class="join">
-                    <span>아이디 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="text" name="userid">(영문소문자/숫자, 4~16자)</div>
-                <div class="join">
-                    <span>비밀번호 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="password" name="userpw">  (영문 대소문자/숫자/특수문자 중 3가지 이상 조합, 8자~16자)</div>
-                <!--   <div class="join">
-                       <span>비밀번호 확인 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="password" name="userpw"></div>-->
-                <div class="join">
-                    <span>이름 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="text" name="username"></div>
-                <div class="join">
-                    <span>주소 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="text" name="address"></div>
-                <div class="join">
-                    <span>휴대전화 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="text" name="pnum"></div>
-                <div class="join">
-                    <span>이메일 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="text" name="email"></div>
-                <div class="join">
-                    <span>생년월일 <b style="color: #F5CE28">*</b></span> <input class="join-input" type="date" name="birth"> (EX : 1999-01-01)</div>
-                <input type="hidden" name="_csrf" value="${_csrf.token}"/>
-                <input class="join-submit" type="submit" value="회원가입">
+<div class="mypage">
+    <div><h2>마이페이지</h2></div>
+    <div class="mypage2">
+        <div><img src="http://192.168.70.200/세이치즈.png" alt="세이치즈"></div>
 
-            </form>
+        <div class="container">
+            <div class="customer-name"> <span th:text="${session.loginID}"></span>님</div>
+            <div class="allOrder">총주문 <div class="order-count">0회</div> </div>
+            <div class="points">총적립금  <div class="points-value">0원</div></div>
+            <div class="button-container">
+                <div class="wish"> <button>내가 찜한 상품보기</button> </div>
+                <div class="customer-update"><button> <a href="/member/infoupdate">회원정보 수정</a></button></div>
+            </div>
         </div>
-    <br>
-
-
-
+    </div>
+    </div>
 
 </body>
-
 <footer style="background-color: #F4F4F4; height: 100%;">
     <div style="width: 1000px; margin-left: 280px; padding: 30px;">
         <div style="color: grey;">

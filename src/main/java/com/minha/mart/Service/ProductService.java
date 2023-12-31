@@ -1,8 +1,8 @@
-package com.minha.mart.ProductService;
+package com.minha.mart.Service;
 
-import com.minha.mart.ProductDTO.ProductDTO;
-import com.minha.mart.ProductEntity.ProductEntity;
-import com.minha.mart.ProductRepository.ProductRepository;
+import com.minha.mart.DTO.ProductDTO;
+import com.minha.mart.Entity.ProductEntity;
+import com.minha.mart.Repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

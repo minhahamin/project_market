@@ -1,6 +1,6 @@
-package com.minha.mart.ProductRepository;
+package com.minha.mart.Repository;
 
-import com.minha.mart.ProductEntity.ProductEntity;
+import com.minha.mart.Entity.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

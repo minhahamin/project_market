@@ -1,14 +1,15 @@
-package com.minha.mart.ProductEntity;
+package com.minha.mart.Entity;
 
 
 import lombok.Getter;
 import lombok.Setter;
 
-import jakarta.persistence.*;
+
+import javax.persistence.*;
 
 
 @Entity
-@Table (name = "tb_product")
+@Table(name = "tb_product")
 @Getter
 @Setter
 public class ProductEntity {

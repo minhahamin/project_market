@@ -155,6 +155,18 @@
 
 <body>
 <div class="header">
+    <!-- 로그인 상태일 때 -->
+    <span th:if="${session.loginID != null}">
+        <span th:text="${session.loginID}"></span>
+        <a th:href="@{/member/basket}">장바구니</a>
+        <a th:href="@{/member/mypage}">마이페이지</a>
+        <a href="/member/logout">로그아웃</a>
+    </span>
+
+
+    <!-- 로그아웃 상태일 때 -->
+    <a th:if="${session.loginID == null}" href="/member/login" >로그인</a>
+
     <a>고객센터</a>
     <a>채용안내</a>
     <a>전자계약시스템</a>

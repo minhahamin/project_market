@@ -1,7 +1,7 @@
-package com.minha.mart.ProductController;
+package com.minha.mart.Controller;
 
-import com.minha.mart.ProductDTO.ProductDTO;
-import com.minha.mart.ProductService.ProductService;
+import com.minha.mart.DTO.ProductDTO;
+import com.minha.mart.Service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
