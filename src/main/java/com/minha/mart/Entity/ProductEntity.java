@@ -37,6 +37,8 @@ public class ProductEntity {
     @Column(name = "pro_photo", length = 500)
     private String proPhoto;
 
+
+
    /* @OneToMany(mappedBy = "product")
     private List<BasketEntity> baskets;*/
 

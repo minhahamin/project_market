@@ -58,6 +58,10 @@ public class MemberService {
         Optional<MemberEntity> optionalMemberEntity = memberRepository.findById(idx);
         return optionalMemberEntity.map(MemberDTO::toMemberDTO).orElse(null);
     }
+    // 회원 ID로 회원 정보 조회
+    public MemberEntity findByIdx(Long idx) {
+        return memberRepository.findByIdx(idx);
+    }
 
     public MemberDTO infoupdateForm(String userId){
         return memberRepository.findByUserid(userId)

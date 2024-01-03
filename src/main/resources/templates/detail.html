@@ -287,13 +287,13 @@
             </div>
 
             <form method="post" action="/basket/add">
-            <div class="select-quantity" style="margin-left: 800px; width: 400px; height: 40px;">
-                <select name="amount">
-                    <th:block th:each="number : ${numbers}">
-                        <option th:value="${number}" th:text="${number}"></option>
-                    </th:block>
-                </select>&nbsp;개
-            </div>
+                <div class="select-quantity" style="margin-left: 800px; width: 400px; height: 40px;">
+                    <select name="amount">
+                        <th:block th:each="number : ${numbers}">
+                            <option th:value="${number}" th:text="${number}"></option>
+                        </th:block>
+                    </select>&nbsp;개
+                </div>
             <div class="btn">
                 <input type="hidden" name="product" th:value="${product.idx}">
                 <input type="hidden" name="userid" th:value="${session.loginID}">

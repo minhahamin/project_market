@@ -1,57 +1,53 @@
 package com.minha.mart.Service;
 
 
+import com.minha.mart.DTO.BasketDTO;
 import com.minha.mart.Entity.BasketEntity;
+import com.minha.mart.Entity.MemberEntity;
+import com.minha.mart.Entity.ProductEntity;
 import com.minha.mart.Repository.BasketRepository;
+import com.minha.mart.Repository.MemberRepository;
+import com.minha.mart.Repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
 public class BasketService {
 
     private final BasketRepository basketRepository;
+    private final MemberRepository memberRepository;
+    private final ProductRepository productRepository;
 
-    // 생성자 주입을 통한 BasketRepository 초기화
-    public BasketService(BasketRepository basketRepository) {
+    // Constructor for repositories
+    public BasketService(BasketRepository basketRepository, MemberRepository memberRepository, ProductRepository productRepository) {
         this.basketRepository = basketRepository;
+        this.memberRepository = memberRepository;
+        this.productRepository = productRepository;
     }
 
-    public BasketEntity addProductToBasket(BasketEntity basket) {
-        return basketRepository.save(basket);
-    }
-    public List<BasketEntity> getBasketByUserid(String userid) {
-        return basketRepository.findByMember_Userid(userid);
-    }
+    public void addToBasket(String userid, Long product) {
+        Optional<MemberEntity> memberOptional = memberRepository.findByUserid(userid);
+        ProductEntity productEntity = productRepository.findByIdx(product); // Non-optional return type
 
-    public List<BasketEntity> getBasketItems() {
-        // Retrieve the basket items from the repository
-        List<BasketEntity> basketItems = basketRepository.findAll();
-
-        // Check if the basketItems is null or empty
-        if (basketItems.isEmpty()) {
-            // Handle the case where there are no basket items
-            // You can return an empty list or throw an exception, depending on your requirements
-            // For example, you can return an empty list:
-            return Collections.emptyList();
+        if (!memberOptional.isPresent() || productEntity == null) {
+            // Handle error: either user or product not found
+            return;
         }
 
-        return basketItems;
-    }
+        MemberEntity member = memberOptional.get();
 
-    public void deleteBasketItem(Long idx) {
-        Optional<BasketEntity> basketItem = basketRepository.findById(idx);
-        basketItem.ifPresent(basketRepository::delete);
-    }
-    public Optional<BasketEntity> updateBasketItem(Long idx, int amount) {
-        Optional<BasketEntity> basketItem = basketRepository.findById(idx);
-        basketItem.ifPresent(item -> {
-            item.setAmount(amount);
-            basketRepository.save(item);
-        });
-        return basketItem;
+        BasketEntity basketEntity = new BasketEntity();
+        basketEntity.setMember(member);
+        basketEntity.setProduct(productEntity);
+        basketEntity.setAmount(1); // Set a fixed amount, for example, 1
+
+        basketRepository.save(basketEntity);
+
     }
 }

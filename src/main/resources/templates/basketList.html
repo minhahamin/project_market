@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>장바구니</title>
+    <title>장바구니 확인</title>
 </head>
 <style>
     body{
@@ -232,70 +232,32 @@
         </li>
     </ul>
 </div>
-<div class="basket">
-    <h2>장바구니</h2>
-    <div class="basket-notice">
-        <img src="http://192.168.70.200/세이치즈.png" alt="세이치즈">
-        <span> <br><br>
-            - 장바구니에 담은 상품들을 한꺼번에 주문 시 묶음 배송을 하실 수 있습니다. <br><br>
-            - 따로 따로 여러번 결제 시 중복 계산된 배송비는 3F 게시판으로 문의 주시면 환불 도와드립니다. </span>
-    </div>
-    <br>
-
-    <div class="basket-list">
-        <div class="basket-list2">
-            <div th:if="${basketItems != null}">
-                장바구니가 비어있습니다.
-            </div>
-
-            <br>
-            <div th:if="${basketItems == null}">
-                <form name="form1" id="form1" method="post" action="/basket/add">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>UserId</th>
-                            <th>수량</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <!-- Use Thymeleaf to loop through and display basket items -->
-                        <tr th:each="item : ${basketItems}">
-                            <td th:text="${item.member}"></td>
-                            <td th:text="${item.amount}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <input type="hidden" name="amount" >
-                    <button type="submit" id="btnUpdate">수정</button>
-                </form>
-            </div>
-        </div>
-    </div>
 
 
-    <div class="order-button">
-            <button class="all-order">전체상품 주문</button>
-            <button class="select-order">선택상품 주문</button>
-        </div>
+<form th:action="@{/basket/update}" method="post">
+    <table border="1">
+        <tr>
+            <th>유저아이디</th>
+            <th>수량</th>
+
+        </tr>
+        <tr th:each="item : ${basketItems}">
+            <td th:text="${item.userid}"></td>
+            <td th:text="${item.amount}"></td>
+        </tr>
+    </table>
+    <!--input type="hidden" name="amount" th:value="${map.amount}">-->
+    <!--button type="submit" id="btnUpdate">수정</button>-->
+    <div>
+        <p>장바구니 합계: <span th:text="${sumMoney}"></span></p>
+        <p>배송료: <span th:text="${fee}"></span></p>
+        <p>전체 금액: <span th:text="${allSum}"></span></p>
     </div>
-    <div class="use">
-        <div class="use1"><b>이용안내</b></div>
-        <div>장바구니 이용안내</div> <br>
-        <div>① 선택하신 상품의 수량을 변경하시려면 수량변경 후 [변경] 버튼을 누르시면 됩니다. <br>
-            ② [쇼핑계속하기] 버튼을 누르시면 쇼핑을 계속 하실 수 있습니다.<br>
-            ③ 장바구니와 관심상품을 이용하여 원하시는 상품만 주문하거나 관심상품으로 등록하실 수 있습니다.<br>
-            ④ 파일첨부 옵션은 동일상품을 장바구니에 추가할 경우 마지막에 업로드 한 파일로 교체됩니다.<br>
-            ⑤ 해외배송 상품과 국내배송 상품은 함께 결제하실 수 없으니 장바구니 별로 따로 결제해 주시기 바랍니다.<br>
-            ⑥ 해외배송 가능 상품의 경우 국내배송 장바구니에 담았다가 해외배송 장바구니로 이동하여 결제하실 수 있습니다.</div>
-        <br>
-        <div>무이자할부 이용안내</div> <br>
-        <div>① 상품별 무이자할부 혜택을 받으시려면 무이자할부 상품만 선택하여 [주문하기] 버튼을 눌러 주문/결제 하시면 됩니다.<br>
-            ② [전체 상품 주문] 버튼을 누르시면 장바구니의 구분없이 선택된 모든 상품에 대한 주문/결제가 이루어집니다.<br>
-            ③ 단, 전체 상품을 주문/결제하실 경우, 상품별 무이자할부 혜택을 받으실 수 없습니다.<br>
-            ④ 무이자할부 상품은 장바구니에서 별도 무이자할부 상품 영역에 표시되어, 무이자할부 상품 기준으로 배송비가 표시됩니다.<br>
-            ⑤ 실제 배송비는 함께 주문하는 상품에 따라 적용되오니 주문서 하단의 배송비 정보를 참고해주시기 바랍니다.</div>
-    </div>
+</form>
+
+
+
+
 <script>
     // 스크롤 이벤트 리스너 추가
     window.addEventListener('scroll', function() {
@@ -310,37 +272,4 @@
 </script>
 </body>
 
-<footer style="background-color: #F4F4F4; height: 100%;">
-    <div style="width: 1000px; margin-left: 280px; padding: 30px;">
-        <div style="color: grey;">
-            개인정보 처리방침 |
-            영상정보기기 운영 관리 방침 |
-            이용약관 |
-            회사소식 |
-            고객센터 |
-            CSR경영 |
-            사이트맵 |
-
-            패밀리사이트 +
-        </div>
-        <br>
-        <div style="display: flex; color: grey;">
-            (주) 세이치즈 마켓
-            <div style="margin-left: 500px;">
-                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsYutube.png"></button>
-                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsInsta.png">
-                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsFacebook.png">
-                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsTiktok.png">
-            </div>
-        </div>
-        <br>
-        <br>
-        <div style="color: grey;">
-            대표이사: 홍민하 / 사업자등록번호: 100-00-00000 <br>
-            서울특별시 성동구 성수동 2가 281-4 푸조비즈타워 / <br>
-            고객센터: 02-5678-1234 / Fax: 02-1234-5678 <br>
-            COPYRIGHT (C) EMART24.ALL RIGHT RESERVED <br>
-        </div>
-    </div>
-</footer>
 </html>

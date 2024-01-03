@@ -198,7 +198,7 @@ button.next {
     <!-- 로그인 상태일 때 -->
     <span th:if="${session.loginID != null}">
         <span th:text="${session.loginID}"></span>
-        <a th:href="@{/basket/basket}">장바구니</a>
+        <a th:href="@{/basket/basketList}">장바구니</a>
         <a th:href="@{/member/mypage}">마이페이지</a>
         <a href="/member/logout">로그아웃</a>
     </span>

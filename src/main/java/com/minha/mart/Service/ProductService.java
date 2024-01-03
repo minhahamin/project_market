@@ -42,9 +42,9 @@ public class ProductService implements ProductServiceImpl {
     public ProductEntity getProductById(Long id) {
         return productRepository.findById(id).orElse(null); // Or handle NotFoundException
     }
-    public Optional<ProductEntity> findById(Long id) {
-        return productRepository.findById(id);
-    }
+
+    // 상품 ID로 상품 정보 조회
+
 
     public ProductEntity findProductById(Long product) {
         // productId를 사용하여 ProductEntity를 조회
