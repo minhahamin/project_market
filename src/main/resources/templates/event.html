@@ -158,7 +158,7 @@
     <!-- 로그인 상태일 때 -->
     <span th:if="${session.loginID != null}">
         <span th:text="${session.loginID}"></span>
-        <a th:href="@{/member/basket}">장바구니</a>
+        <a th:href="@{/basket/basket}">장바구니</a>
         <a th:href="@{/member/mypage}">마이페이지</a>
         <a href="/member/logout">로그아웃</a>
     </span>
@@ -222,7 +222,9 @@
 <div style="margin-left: 100px; margin-top: 20px;"> <button style="background-color: #FFCD4B; color: white; font-weight: bold; border: none; width: 50px; height: 40px; border-radius: 30px;"> 전체 </button> <button style="background-color: #FFCD4B; color: white; font-weight: bold; border: none; width: 55px; height: 40px; border-radius: 30px;  margin-left: 10px;"> 덤증정 </button></div>
 <div class="container" style=" border: 1px solid black;">
     <div th:each="product: ${productList}">
-        <div class="grid-img" ><img th:src="${product.pro_photo}" alt="대체 이미지"></div>
+        <div class="grid-img" >
+            <a th:href="@{/goods/detail/{idx}(idx=${product.idx})}">
+                <img th:src="${product.pro_photo}" alt="대체 이미지"></a></div>
         <p th:text="${product.pro_name}"></p>
         <div class="price-and-cart">
             <p th:text="${product.pro_price}"></p>원
@@ -285,9 +287,4 @@
     </div>
 </footer>
 
-</html></title>
-</head>
-<body>
-
-</body>
 </html>

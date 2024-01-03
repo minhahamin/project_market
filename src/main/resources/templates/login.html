@@ -139,12 +139,6 @@
         <p>-----------------------------또는---------------------------</p>
     </div>
     <div>
-        <div class="original1">
-            <ul class="tabs">
-                <li><button class="original tab-button" data-target="tab1">기존 회원이세요?</button></li>
-                <li><button class="delivery tab-button" data-target="tab2">비회원 배송조회</button></li>
-            </ul>
-        </div>
         <!-- 탭 내용 -->
         <div id="tab1" class="tab-content">
             <form class="form" action="/member/login" method="post">
@@ -155,15 +149,7 @@
                 <a class="find-id"> 아이디 찾기 | </a>
                 <a class="find-pw"> 비밀번호 찾기 </a>            <a class="joining" th:href="@{/member/join}"> 회원가입</a>
             </form>
-            <p>-----------------------------또는---------------------------</p></div>
-        <div id="tab2" class="tab-content" style="display:none;"><form class="form">
-            <input class="id-input" type="text" name="" placeholder="주문자명"> <br>
-            <input class="pw-input" type="password" name="" placeholder="주문번호"> <br>
-            <input class="pw-input" type="password" placeholder="비회원 주문 비밀번호">  <br>
-            <button class="original-login" type="submit" > 비회원 주문조회</button>
-        </form>
-            <p>-----------------------------또는---------------------------</p>
-        </div>
+     </div>
 
     </div>
     <div>

@@ -7,6 +7,7 @@ import com.minha.mart.Entity.MemberEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.text.ParseException;
 import java.util.Optional;
 
@@ -90,4 +91,11 @@ public class MemberService {
             return null;
         }
     }
+
+    public MemberEntity findMemberByUserId(String userid) {
+        // userId를 사용하여 MemberEntity를 조회
+        return memberRepository.findByUserid(userid)
+                .orElseThrow(() -> new EntityNotFoundException("Member not found with userid: " + userid));
+    }
+
 }

@@ -6,10 +6,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
@@ -79,8 +82,6 @@ public class MemberController {
         memberService.infoupdate(idx, memberDTO);
         return "redirect:/member/mypage";
     }
-    @GetMapping("/member/basket")
-    public String basket(){return "basket";}
 
 
 

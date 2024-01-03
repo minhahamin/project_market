@@ -5,19 +5,25 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Set;
 
 
 @Getter
 @Setter
 @Entity
 @Table(name = "member")
-public class MemberEntity {
+public class MemberEntity implements Serializable {
     @Id     // pk 지정
     @GeneratedValue(strategy = GenerationType.IDENTITY)     // 자동 idx 지정
     private Long idx;
+
+    // Implement Serializable by adding a serialVersionUID
+    private static final long serialVersionUID = 1L;
 
     @Column(unique = true)      // unique 제약조건 추가
     private String userid;
@@ -30,6 +36,12 @@ public class MemberEntity {
     private String email;
     private Date birth;
 
+    @OneToMany(mappedBy = "member")
+    private Set<BasketEntity> baskets;
+
+/*
+    @OneToMany(mappedBy = "userid")
+    private List<BasketEntity> baskets;*/
 
     public static MemberEntity toMemberEntity(MemberDTO memberDTO) throws ParseException{
         MemberEntity memberEntity = new MemberEntity();

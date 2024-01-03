@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>장바구니</title>
 </head>
 <style>
     body{
@@ -176,7 +176,7 @@
     <!-- 로그인 상태일 때 -->
     <span th:if="${session.loginID != null}">
         <span th:text="${session.loginID}"></span>
-        <a th:href="@{/member/basket}">장바구니</a>
+        <a th:href="@{/basket/basket}">장바구니</a>
         <a th:href="@{/member/mypage}">마이페이지</a>
         <a href="/member/logout">로그아웃</a>
     </span>
@@ -244,9 +244,37 @@
 
     <div class="basket-list">
         <div class="basket-list2">
-            장바구니가 비어있습니다. <br>
+            <div th:if="${basketItems != null}">
+                장바구니가 비어있습니다.
+            </div>
+
+            <br>
+            <div th:if="${basketItems == null}">
+                <form name="form1" id="form1" method="post" action="/basket/add">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>UserId</th>
+                            <th>수량</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- Use Thymeleaf to loop through and display basket items -->
+                        <tr th:each="item : ${basketItems}">
+                            <td th:text="${item.member}"></td>
+                            <td th:text="${item.amount}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <input type="hidden" name="amount" >
+                    <button type="submit" id="btnUpdate">수정</button>
+                </form>
+            </div>
         </div>
-        <div class="order-button">
+    </div>
+
+
+    <div class="order-button">
             <button class="all-order">전체상품 주문</button>
             <button class="select-order">선택상품 주문</button>
         </div>
@@ -268,7 +296,6 @@
             ④ 무이자할부 상품은 장바구니에서 별도 무이자할부 상품 영역에 표시되어, 무이자할부 상품 기준으로 배송비가 표시됩니다.<br>
             ⑤ 실제 배송비는 함께 주문하는 상품에 따라 적용되오니 주문서 하단의 배송비 정보를 참고해주시기 바랍니다.</div>
     </div>
-</div>
 <script>
     // 스크롤 이벤트 리스너 추가
     window.addEventListener('scroll', function() {
