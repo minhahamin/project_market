@@ -14,6 +14,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -49,5 +50,19 @@ public class BasketService {
 
         basketRepository.save(basketEntity);
 
+    }
+    public List<BasketDTO> getBasketDetails(String userid) {
+        Set<BasketEntity> baskets = basketRepository.findByMember_Userid(userid);
+        return BasketEntity.getBasketDetails(baskets);
+    }
+    public void updateBasket(BasketDTO basketDTO) {
+        // DTO로부터 Entity를 생성하거나 업데이트
+        // 예시로, 여기에서는 기존 BasketEntity를 찾아 업데이트하는 로직을 구현
+        BasketEntity basket = basketRepository.findById(basketDTO.getIdx())
+                .orElseThrow(() -> new IllegalArgumentException("Invalid basket Id:" + basketDTO.getIdx()));
+
+        basket.setAmount(basketDTO.getAmount());
+        // 필요한 다른 필드 업데이트
+        basketRepository.save(basket);
     }
 }

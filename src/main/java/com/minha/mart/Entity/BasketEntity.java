@@ -10,7 +10,9 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -32,7 +34,7 @@ public class BasketEntity {
     @JoinColumn(name = "product", referencedColumnName = "idx")
     private ProductEntity product;
 
-    public static BasketEntity toBasketEntity(BasketDTO basketDTO, MemberEntity member, ProductEntity product) {
+   /* public static BasketEntity toBasketEntity(BasketDTO basketDTO, MemberEntity member, ProductEntity product) {
         BasketEntity basketEntity = new BasketEntity();
         basketEntity.setIdx(basketDTO.getIdx());
         basketEntity.setAmount(basketDTO.getAmount());
@@ -46,7 +48,22 @@ public class BasketEntity {
 
         return basketEntity;
     }
+*/
 
+    // 장바구니 상세 정보를 가져오는 메서드
+    public static List<BasketDTO> getBasketDetails(Set<BasketEntity> baskets) {
+        List<BasketDTO> basketDetails = new ArrayList<>();
+
+        for (BasketEntity basket : baskets) {
+            BasketDTO details = new BasketDTO();
+            details.setPro_name(basket.getProduct().getProName());
+            details.setAmount(basket.getAmount());
+            details.setPro_price(basket.getProduct().getProPrice());
+            // 필요한 다른 상세 정보 추가
+            basketDetails.add(details);
+        }
+
+        return basketDetails;
 
 
    /* @ManyToOne
@@ -58,4 +75,5 @@ public class BasketEntity {
     private ProductEntity product;*/
 
 
+    }
 }

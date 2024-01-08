@@ -12,9 +12,10 @@ import org.springframework.stereotype.Repository;
 import java.lang.reflect.Member;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface BasketRepository extends JpaRepository<BasketEntity, Long> {
-
-
+    List<BasketEntity> findByMemberUserid(String userid);
+    Set<BasketEntity> findByMember_Userid(String userid);
 }

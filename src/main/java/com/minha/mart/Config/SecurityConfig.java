@@ -19,10 +19,16 @@ public class SecurityConfig  {
                         .antMatchers("/**").permitAll() //  모든 경로 허용
                         .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
                 )
+                .formLogin(formLogin -> formLogin
+                                .loginPage("/login") // 사용자 정의 로그인 페이지
+                                .defaultSuccessUrl("/main") // 로그인 성공 시 리다이렉트할 기본 경로
+                        // 기타 로그인 관련 설정...
+                )
                 .logout(logout -> logout
-                                .logoutSuccessUrl("/main")
-                        // 로그아웃 관련 추가 설정...
-                );
+                                .logoutSuccessUrl("/main") // 로그아웃 성공 시 리다이렉트할 경로
+                        // 기타 로그아웃 관련 설정...
+                )
+        ;
         return http.build();
     }
 }

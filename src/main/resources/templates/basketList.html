@@ -235,24 +235,33 @@
 
 
 <form th:action="@{/basket/update}" method="post">
-    <table border="1">
+    <table cellpadding="1">
+        <thead>
         <tr>
-            <th>유저아이디</th>
+            <th>상품 이미지</th>
+            <th>상품명</th>
             <th>수량</th>
-
+            <th>총합계</th>
+            <th>주문자 이름</th>
         </tr>
-        <tr th:each="item : ${basketItems}">
-            <td th:text="${item.userid}"></td>
-            <td th:text="${item.amount}"></td>
+        </thead>
+        <tbody>
+        <tr th:each="basket : ${basketList}">
+            <td><img th:src="@{${basket.proPhoto}}" alt="상품 이미지"/></td>
+            <td th:text="${basket.proName}">상품명</td>
+            <td th:text="${basket.amount}">수량</td>
+            <td th:text="${basket.sumMoney}">총합계</td>
+            <td th:text="${basket.username}">주문자 이름</td>
         </tr>
+        </tbody>
     </table>
     <!--input type="hidden" name="amount" th:value="${map.amount}">-->
-    <!--button type="submit" id="btnUpdate">수정</button>-->
-    <div>
+    <button type="submit" id="btnUpdate">수정</button>
+   <!-- <div>
         <p>장바구니 합계: <span th:text="${sumMoney}"></span></p>
         <p>배송료: <span th:text="${fee}"></span></p>
         <p>전체 금액: <span th:text="${allSum}"></span></p>
-    </div>
+    </div>-->
 </form>
 
 
@@ -269,6 +278,13 @@
     navbar.classList.remove('scrolled');
   }
 });
+
+
+
+    if (message) {
+    alert(message);
+}
+
 </script>
 </body>
 
