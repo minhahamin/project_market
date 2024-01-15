@@ -34,11 +34,11 @@ public class BasketService {
 
     public Long addToBasket(String userid, Long product, int amount) {
         Optional<MemberEntity> memberOptional = memberRepository.findByUserid(userid);
-        ProductEntity productEntity = productRepository.findByIdx(product); // Non-optional return type
+        ProductEntity productEntity = productRepository.findByIdx(product);
 
         if (!memberOptional.isPresent() || productEntity == null) {
-            // Handle error: either user or product not found
-            throw new RuntimeException("User or Product not found");
+
+            throw new RuntimeException("사용자 또는 상품을 찾을 수 없습니다.");
         }
 
         MemberEntity member = memberOptional.get();
@@ -46,11 +46,12 @@ public class BasketService {
         BasketEntity basketEntity = new BasketEntity();
         basketEntity.setMember(member);
         basketEntity.setProduct(productEntity);
-        basketEntity.setAmount(amount); // Set a fixed amount, for example, 1
+        basketEntity.setAmount(amount);
 
         basketRepository.save(basketEntity);
 
         return member.getIdx();
+
 
     }
     public List<BasketDTO> getBasketDetails(String userid) {
@@ -67,12 +68,13 @@ public class BasketService {
         // 필요한 다른 필드 업데이트
         basketRepository.save(basket);
     }*/
+  public List<BasketDTO> getBasketsForMemberId(String userid){
+        Optional<MemberEntity> memberOptional = memberRepository.findByUserid(userid);
 
-    public List<BasketDTO> getBasketsForMemberIdx(Long idx) {
-        MemberEntity member = memberRepository.findByIdx(idx);
-        if (member == null) {
-            throw new RuntimeException("Member not found");
-        }
+        MemberEntity member = memberOptional.orElseThrow(() -> new RuntimeException("Member not found"));
+
         return BasketEntity.getBasketListForMember(member);
     }
+
+
 }

@@ -26,10 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Member;
 import java.net.URI;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/basket")
@@ -51,17 +48,17 @@ public class BasketController {
     public ModelAndView addToBasket(@RequestParam String userid, @RequestParam Long product, @RequestParam int amount) {
         ModelAndView modelAndView = new ModelAndView();
 
-        basketService.addToBasket(userid, product, amount);
-
         // basketService.addToBasket 메서드를 호출하여 장바구니에 아이템 추가
         // 이 과정에서 사용자의 고유 식별자 idx를 얻거나 계산해야 할 수도 있음
-        Long idx = basketService.addToBasket(userid, product, amount);
+       Long idx = basketService.addToBasket(userid, product, amount);
 
         // 모델에 idx 값을 추가
         modelAndView.addObject("idx", idx);
+        // 모델에 userid 값을 추가
+        modelAndView.addObject("userid", userid);
 
         // 리다이렉트할 때 idx 값을 URL 경로에 포함시킴
-        modelAndView.setViewName("redirect:/basket/basketList/{idx}");
+        modelAndView.setViewName("redirect:/basket/basketList/{userid}");
         return modelAndView;
     }
 
@@ -70,15 +67,29 @@ public class BasketController {
 
 
     // 2. 장바구니 목록
-    @GetMapping("/basketList/{idx}")
-    public String getBasketsByMemberId(@PathVariable Long idx, Model model) {
-        List<BasketDTO> basketList = basketService.getBasketsForMemberIdx(idx);
+  @GetMapping("/basketList/{userid}")
+    public String getBasketsByMemberId(@PathVariable String userid, Model model) {
+        List<BasketDTO> basketList = basketService.getBasketsForMemberId(userid);
+
+       // 중복 제거를 위해 HashSet 사용
+        Set<BasketDTO> uniqueBaskets = new HashSet<>(basketList);
+
+        // 다시 리스트로 변환
+        List<BasketDTO> uniqueBasketList = new ArrayList<>(uniqueBaskets);
+
         model.addAttribute("basketList", basketList);
         return "basketList"; // 장바구니 목록을 보여주는 뷰의 이름
     }
 
 
+
+
     // 3. 장바구니 삭제
+
+    
+    // 4. 장바구니 전체 삭제
+
+
 
 
     // 4. 장바구니 수정

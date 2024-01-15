@@ -276,8 +276,9 @@ input[type="hidden"] {
     </ul>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-<form th:action="@{/basket/update}" method="post">
+<form th:action="@{/basket/update}" method="post" id="basketForm">
     <table cellpadding="1">
         <thead>
         <tr>
@@ -287,29 +288,31 @@ input[type="hidden"] {
             <th>단가</th>
             <th>총합계</th>
             <th>주문자 이름</th>
+            <th>선택 삭제</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="basket : ${basketList}">
+        <tr th:each="basket : ${basketList}" >
             <td><img th:src="@{${basket.pro_photo}}" alt="상품 이미지"/></td>
             <!-- 각 장바구니 아이템의 고유 식별자 (idx)를 hidden input으로 추가 -->
             <input type="hidden" name="idx" th:value="${basket.idx}" />
-            <td th:text="${basket.pro_name}">상품명</td>
-            <td th:text="${basket.amount}">수량 <span> 개</span></td>
-            <td th:text="${basket.pro_price}">단가</td>
-            <td th:text="${basket.sumMoney}">총합계</td>
-            <td th:text="${basket.username}">주문자 이름</td>
+            <td th:text="${basket.pro_name}">상품명 </td>
+            <td th:text="${basket.amount + ' 개'}">수량  </td>
+            <td th:text="${basket.pro_price + '원'}">단가  </td>
+            <td th:text="${basket.sumMoney + '원'}">총합계 </td>
+            <td th:text="${basket.username}">주문자 이름 </td>
+            <td><button type="button" id="btnDeleteAll">삭제</button> </td>
         </tr>
         </tbody>
+
     </table>
-    <!--input type="hidden" name="amount" th:value="${map.amount}">-->
+
     <button type="submit" id="btnUpdate">수정</button>
-   <!-- <div>
-        <p>장바구니 합계: <span th:text="${sumMoney}"></span></p>
-        <p>배송료: <span th:text="${fee}"></span></p>
-        <p>전체 금액: <span th:text="${allSum}"></span></p>
-    </div>-->
 </form>
+
+
+
+
 
 
 
@@ -328,9 +331,9 @@ input[type="hidden"] {
 
 
 
-    if (message) {
-    alert(message);
-}
+
+
+
 
 </script>
 </body>

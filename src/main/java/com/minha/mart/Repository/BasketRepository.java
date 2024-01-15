@@ -18,4 +18,9 @@ import java.util.Set;
 public interface BasketRepository extends JpaRepository<BasketEntity, Long> {
     List<BasketEntity> findByMemberUserid(String userid);
     Set<BasketEntity> findByMember_Userid(String userid);
+
+    Optional<BasketEntity> findByMemberAndProduct(MemberEntity member, ProductEntity product);
+
+
+
 }

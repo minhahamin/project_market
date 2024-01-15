@@ -70,6 +70,7 @@ public class BasketEntity {
     public static List<BasketDTO> getBasketListForMember(MemberEntity member) {
         return member.getBaskets().stream().map(basket -> {
             BasketDTO basketDTO = new BasketDTO();
+            basketDTO.setUserid(basket.getMember().getUserid());
             basketDTO.setPro_name(basket.getProduct().getProName());
             basketDTO.setAmount(basket.getAmount());
             basketDTO.setPro_price(basket.getProduct().getProPrice());
