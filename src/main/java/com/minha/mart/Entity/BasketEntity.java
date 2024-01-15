@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -65,15 +66,18 @@ public class BasketEntity {
 
         return basketDetails;
 
-
-   /* @ManyToOne
-    @JoinColumn(name = "userid", referencedColumnName = "userid", insertable = false, updatable = false)
-    private MemberEntity userid;
-
-    @ManyToOne
-    @JoinColumn(name = "product", referencedColumnName = "idx", insertable = true, updatable = true)
-    private ProductEntity product;*/
-
-
+    }
+    public static List<BasketDTO> getBasketListForMember(MemberEntity member) {
+        return member.getBaskets().stream().map(basket -> {
+            BasketDTO basketDTO = new BasketDTO();
+            basketDTO.setPro_name(basket.getProduct().getProName());
+            basketDTO.setAmount(basket.getAmount());
+            basketDTO.setPro_price(basket.getProduct().getProPrice());
+            basketDTO.setPro_photo(basket.getProduct().getProPhoto());
+            basketDTO.setSumMoney(basket.getProduct().getProPrice() * basket.getAmount());
+            basketDTO.setUsername(basket.getMember().getUsername());
+            // 필요한 다른 상세 정보도 여기에 추가할 수 있습니다.
+            return basketDTO;
+        }).collect(Collectors.toList());
     }
 }

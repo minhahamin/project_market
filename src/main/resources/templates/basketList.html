@@ -170,6 +170,49 @@
         background-color: #FBFBFB;
         border-bottom: 1px solid #D5D4D4;
     }
+    /* 테이블 전체 스타일 */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+/* 헤더 셀 스타일 */
+th {
+    background-color: #FED20B;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+/* 바디 셀 스타일 */
+td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+/* 짝수 줄 배경색 */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* 마우스 오버 시 행 강조 */
+tr:hover {
+    background-color: #ddd;
+}
+
+/* 이미지 스타일 */
+img {
+    width: 100px; /* 이미지 크기 조정 */
+    height: auto;
+    border-radius: 5px; /* 이미지 모서리 둥글게 */
+}
+
+/* 숨겨진 입력 필드 스타일 */
+input[type="hidden"] {
+    display: none;
+}
+
 </style>
 <body>
 <div class="header">
@@ -241,15 +284,19 @@
             <th>상품 이미지</th>
             <th>상품명</th>
             <th>수량</th>
+            <th>단가</th>
             <th>총합계</th>
             <th>주문자 이름</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="basket : ${basketList}">
-            <td><img th:src="@{${basket.proPhoto}}" alt="상품 이미지"/></td>
-            <td th:text="${basket.proName}">상품명</td>
-            <td th:text="${basket.amount}">수량</td>
+            <td><img th:src="@{${basket.pro_photo}}" alt="상품 이미지"/></td>
+            <!-- 각 장바구니 아이템의 고유 식별자 (idx)를 hidden input으로 추가 -->
+            <input type="hidden" name="idx" th:value="${basket.idx}" />
+            <td th:text="${basket.pro_name}">상품명</td>
+            <td th:text="${basket.amount}">수량 <span> 개</span></td>
+            <td th:text="${basket.pro_price}">단가</td>
             <td th:text="${basket.sumMoney}">총합계</td>
             <td th:text="${basket.username}">주문자 이름</td>
         </tr>

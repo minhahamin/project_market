@@ -48,39 +48,33 @@ public class BasketController {
 
     // 1. 장바구니 추가
     @PostMapping("/add")
-    public ModelAndView addToBasket(@RequestParam String userid, @RequestParam Long product) {
+    public ModelAndView addToBasket(@RequestParam String userid, @RequestParam Long product, @RequestParam int amount) {
         ModelAndView modelAndView = new ModelAndView();
-        try {
-            basketService.addToBasket(userid, product);
-            modelAndView.addObject("message", "Product added to basket successfully.");
-            modelAndView.setViewName("redirect:/basket/basketList");
-        } catch (Exception e) {
-            modelAndView.addObject("error", "Error adding product to basket: " + e.getMessage());
-            modelAndView.setViewName("redirect:/errorPage"); // 에러 페이지 또는 적절한 경로로 변경
-        }
+
+        basketService.addToBasket(userid, product, amount);
+
+        // basketService.addToBasket 메서드를 호출하여 장바구니에 아이템 추가
+        // 이 과정에서 사용자의 고유 식별자 idx를 얻거나 계산해야 할 수도 있음
+        Long idx = basketService.addToBasket(userid, product, amount);
+
+        // 모델에 idx 값을 추가
+        modelAndView.addObject("idx", idx);
+
+        // 리다이렉트할 때 idx 값을 URL 경로에 포함시킴
+        modelAndView.setViewName("redirect:/basket/basketList/{idx}");
         return modelAndView;
     }
 
 
 
 
+
     // 2. 장바구니 목록
-    @GetMapping("/basketList")
-    public String viewBasketList(Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        // 사용자가 로그인하지 않았거나 인증되지 않은 경우
-        if (authentication == null || !authentication.isAuthenticated()) {
-            // 예: 로그인 페이지로 리다이렉트
-            return "redirect:/login";
-        }
-
-        String userId = authentication.getName(); // 로그인한 사용자의 ID를 가져옴
-        System.out.println("아이디 :" + userId);
-
-        List<BasketDTO> basketList = basketService.getBasketDetails(userId);
+    @GetMapping("/basketList/{idx}")
+    public String getBasketsByMemberId(@PathVariable Long idx, Model model) {
+        List<BasketDTO> basketList = basketService.getBasketsForMemberIdx(idx);
         model.addAttribute("basketList", basketList);
-        return "basketList";
+        return "basketList"; // 장바구니 목록을 보여주는 뷰의 이름
     }
 
 
@@ -88,10 +82,10 @@ public class BasketController {
 
 
     // 4. 장바구니 수정
-    @PostMapping("/update")
+  /*  @PostMapping("/update")
     public String updateBasket(@ModelAttribute BasketDTO basketDTO) {
         basketService.updateBasket(basketDTO);
         return "redirect:/basketList";
-    }
+    }*/
 
 }

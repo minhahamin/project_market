@@ -32,13 +32,13 @@ public class BasketService {
         this.productRepository = productRepository;
     }
 
-    public void addToBasket(String userid, Long product) {
+    public Long addToBasket(String userid, Long product, int amount) {
         Optional<MemberEntity> memberOptional = memberRepository.findByUserid(userid);
         ProductEntity productEntity = productRepository.findByIdx(product); // Non-optional return type
 
         if (!memberOptional.isPresent() || productEntity == null) {
             // Handle error: either user or product not found
-            return;
+            throw new RuntimeException("User or Product not found");
         }
 
         MemberEntity member = memberOptional.get();
@@ -46,16 +46,18 @@ public class BasketService {
         BasketEntity basketEntity = new BasketEntity();
         basketEntity.setMember(member);
         basketEntity.setProduct(productEntity);
-        basketEntity.setAmount(1); // Set a fixed amount, for example, 1
+        basketEntity.setAmount(amount); // Set a fixed amount, for example, 1
 
         basketRepository.save(basketEntity);
+
+        return member.getIdx();
 
     }
     public List<BasketDTO> getBasketDetails(String userid) {
         Set<BasketEntity> baskets = basketRepository.findByMember_Userid(userid);
         return BasketEntity.getBasketDetails(baskets);
     }
-    public void updateBasket(BasketDTO basketDTO) {
+/*    public void updateBasket(BasketDTO basketDTO) {
         // DTO로부터 Entity를 생성하거나 업데이트
         // 예시로, 여기에서는 기존 BasketEntity를 찾아 업데이트하는 로직을 구현
         BasketEntity basket = basketRepository.findById(basketDTO.getIdx())
@@ -64,5 +66,13 @@ public class BasketService {
         basket.setAmount(basketDTO.getAmount());
         // 필요한 다른 필드 업데이트
         basketRepository.save(basket);
+    }*/
+
+    public List<BasketDTO> getBasketsForMemberIdx(Long idx) {
+        MemberEntity member = memberRepository.findByIdx(idx);
+        if (member == null) {
+            throw new RuntimeException("Member not found");
+        }
+        return BasketEntity.getBasketListForMember(member);
     }
 }

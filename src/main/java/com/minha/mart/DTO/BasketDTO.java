@@ -19,11 +19,10 @@ public class BasketDTO {
     private String pro_name; // 상품 이름
     private int pro_price; // 상품 단가
     private String pro_photo;
-    private int money; // 상품 가격
 
     private int sumMoney;
 
-    public static BasketDTO toBasketDTO (BasketEntity basketEntity){
+  /*  public static BasketDTO toBasketDTO (BasketEntity basketEntity){
         BasketDTO basketDTO = new BasketDTO();
         basketDTO.setIdx(basketEntity.getIdx());
         basketDTO.setUserid(basketEntity.getMember().getUserid());
@@ -31,7 +30,7 @@ public class BasketDTO {
         basketDTO.setAmount(basketEntity.getAmount());
 
         return basketDTO;
-    }
+    }*/
 
 
 }
