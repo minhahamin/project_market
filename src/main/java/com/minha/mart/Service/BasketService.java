@@ -9,6 +9,7 @@ import com.minha.mart.Repository.BasketRepository;
 import com.minha.mart.Repository.MemberRepository;
 import com.minha.mart.Repository.ProductRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Collections;
@@ -75,6 +76,12 @@ public class BasketService {
 
         return BasketEntity.getBasketListForMember(member);
     }
-
-
+    @Transactional
+    public void deleteItemById(Long idx) {
+        basketRepository.deleteById(idx);
+    }
+    @Transactional
+    public void deleteItemsByIndices(List<Long> itemIndices) {
+        basketRepository.deleteByIdIn(itemIndices);
+    }
 }

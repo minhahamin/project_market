@@ -85,10 +85,31 @@ public class BasketController {
 
 
     // 3. 장바구니 삭제
+    @PostMapping("/delete/{idx}")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> deleteItem(@PathVariable Long idx) {
+        // Perform delete operation in the database using the idx
+        basketService.deleteItemById(idx);
 
-    
+        Map<String, String> response = new HashMap<>();
+        response.put("success", "true");
+        return ResponseEntity.ok(response);
+    }
+
+
     // 4. 장바구니 전체 삭제
+    @PostMapping("/delete/all")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> deleteAllItems(@RequestBody Map<String, List<Long>> requestBody) {
+        List<Long> itemIndices = requestBody.get("itemIndices");
 
+        // Perform delete operation in the database using the item indices
+        basketService.deleteItemsByIndices(itemIndices);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("success", "true");
+        return ResponseEntity.ok(response);
+    }
 
 
 

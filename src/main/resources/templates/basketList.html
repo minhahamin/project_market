@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>장바구니 확인</title>
@@ -301,12 +301,12 @@ input[type="hidden"] {
             <td th:text="${basket.pro_price + '원'}">단가  </td>
             <td th:text="${basket.sumMoney + '원'}">총합계 </td>
             <td th:text="${basket.username}">주문자 이름 </td>
-            <td><button type="button" id="btnDeleteAll">삭제</button> </td>
+            <td><button type="button" class="btnDelete" th:data-idx="${basket.idx}">삭제</button>
+            </td>
         </tr>
         </tbody>
-
     </table>
-
+    <button type="button" id="btnDeleteAll">전체 삭제</button>
     <button type="submit" id="btnUpdate">수정</button>
 </form>
 
@@ -335,7 +335,88 @@ input[type="hidden"] {
 
 
 
+     // 페이지 로드 후 실행될 스크립트
+    $(document).ready(function () {
+        // "삭제" 버튼 클릭 시 이벤트 핸들러
+        $('.btnDelete').on('click', function () {
+            // 해당 버튼의 data-idx 속성을 통해 idx 값을 가져옴
+            var idx = $(this).data('idx');
+
+            // deleteItem 함수 호출
+            deleteItem(idx);
+        });
+
+        // "전체 삭제" 버튼 클릭 시 이벤트 핸들러
+        $('#btnDeleteAll').on('click', function () {
+            // 여러 항목의 idx 값을 배열로 가져옴
+            var itemIndices = [];
+            $('.btnDelete').each(function () {
+                itemIndices.push($(this).data('idx'));
+            });
+
+            // deleteItems 함수 호출
+            deleteItems(itemIndices);
+        });
+    });
+
+    // deleteItem 함수 정의
+    function deleteItem(idx) {
+        // 서버로 데이터를 전송할 수 있는 AJAX 요청
+        $.ajax({
+            type: 'POST', // 또는 'GET'에 따라 변경
+            url: '/basket/delete/' + idx,  // 서버의 컨트롤러 엔드포인트 주소
+            success: function (data) {
+                // 서버로부터의 응답 처리
+                console.log('삭제 성공:', data);
+
+                // 여기에 필요한 추가 작업을 수행할 수 있습니다.
+            },
+            error: function (error) {
+                // 오류 처리
+                console.error('삭제 실패:', error);
+            }
+        });
+    }
+
+    // deleteItem 함수 정의
+    function deleteItem(idx) {
+    // 해당 버튼의 data-idx 속성을 통해 idx 값을 가져옴
+    console.log('idx:', idx);
+
+    // idx가 undefined이면 요청을 보내지 않음
+    if (idx === undefined) {
+        console.log('idx가 undefined입니다. 요청을 보내지 않습니다.');
+        return;
+    }
+
+    // 서버로 데이터를 전송할 수 있는 AJAX 요청
+    $.ajax({
+        type: 'POST', // 또는 'GET'에 따라 변경
+        url: '/basket/delete/' + idx,
+        success: function (data) {
+            // 서버로부터의 응답 처리
+            console.log('삭제 성공:', data);
+            alert('선택된 상품이 삭제되었습니다 :)'); // 삭제 성공 시 알림 창 띄우기
+
+            // 페이지를 새로고침
+            location.reload();
+
+        },
+        error: function (error) {
+            // 오류 처리
+            console.error('삭제 실패:', error);
+
+            alert('선택된 상품이 삭제가 안 되었습니다. 다시 시도 해 주세요.'); // 삭제 실패 시 알림 창 띄우기
+        }
+    });
+}
+
+
 </script>
+
+
+
+
 </body>
 
 </html>
