@@ -212,6 +212,42 @@ img {
 input[type="hidden"] {
     display: none;
 }
+    .btnDelete{
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
+    .btnDeleteAll{
+        border: none;
+        background-color:grey;
+        color: white;
+        border-radius: 20px;
+        width: 80px;
+        height: 40px;
+        font-weight: bold;
+        margin-left: 87%;
+    }
+    .btnUpdate{
+        border: none;
+        background-color:#FED20B;
+        color: white;
+        border-radius: 20px;
+        width: 80px;
+        height: 40px;
+        font-weight: bold;
+
+    }
+    .buy{
+        border: none;
+        background-color:#FED20B;
+        color: white;
+        border-radius: 20px;
+        width: 400px;
+        height: 40px;
+        font-weight: bold;
+        margin-left: 71%;
+        margin-top: 10px;
+    }
 
 </style>
 <body>
@@ -282,6 +318,7 @@ input[type="hidden"] {
     <table cellpadding="1">
         <thead>
         <tr>
+            <th>ﾠ </th>
             <th>상품 이미지</th>
             <th>상품명</th>
             <th>수량</th>
@@ -293,24 +330,27 @@ input[type="hidden"] {
         </thead>
         <tbody>
         <tr th:each="basket : ${basketList}" >
+            <td><input type="checkbox"></td>
             <td><img th:src="@{${basket.pro_photo}}" alt="상품 이미지"/></td>
             <!-- 각 장바구니 아이템의 고유 식별자 (idx)를 hidden input으로 추가 -->
             <input type="hidden" name="idx" th:value="${basket.idx}" />
             <td th:text="${basket.pro_name}">상품명 </td>
-            <td th:text="${basket.amount + ' 개'}">수량  </td>
+            <td>
+                <input type="number" name="amount" th:value="${basket.amount}" style="width:50px; height: 15px;" min="1" max="10"></td>
             <td th:text="${basket.pro_price + '원'}">단가  </td>
             <td th:text="${basket.sumMoney + '원'}">총합계 </td>
             <td th:text="${basket.username}">주문자 이름 </td>
-            <td><button type="button" class="btnDelete" th:data-idx="${basket.idx}">삭제</button>
+            <td><button type="button" class="btnDelete" th:data-idx="${basket.idx}">✖️</button>
             </td>
         </tr>
         </tbody>
     </table>
-    <button type="button" id="btnDeleteAll">전체 삭제</button>
-    <button type="submit" id="btnUpdate">수정</button>
+
+        <button type="button" class="btnDeleteAll" id="btnDeleteAll">전체 삭제</button>
+        <button type="submit" class="btnUpdate" id="btnUpdate">수정</button>
 </form>
 
-
+<button type="submit" class="buy" >구매</button>
 
 
 
@@ -412,9 +452,12 @@ input[type="hidden"] {
 }
 
 
+
+
+
+
+
 </script>
-
-
 
 
 </body>

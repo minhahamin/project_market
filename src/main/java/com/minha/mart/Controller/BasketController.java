@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.lang.reflect.Member;
 import java.net.URI;
+import java.security.Principal;
 import java.util.*;
 
 @Controller
@@ -84,6 +85,8 @@ public class BasketController {
 
 
 
+
+
     // 3. 장바구니 삭제
     @PostMapping("/delete/{idx}")
     @ResponseBody
@@ -114,10 +117,20 @@ public class BasketController {
 
 
     // 4. 장바구니 수정
-  /*  @PostMapping("/update")
-    public String updateBasket(@ModelAttribute BasketDTO basketDTO) {
-        basketService.updateBasket(basketDTO);
-        return "redirect:/basketList";
-    }*/
+    @PostMapping("/update")
+    public String updateBasket(@RequestParam List<Long> idx, @RequestParam List<Integer> amount, Model model) {
+        // idx와 amount 리스트의 크기는 동일하다고 가정합니다.
+        for (int i = 0; i < idx.size(); i++) {
+            basketService.updateBasketAmount(idx.get(i), amount.get(i));
+        }
+
+        // 수정 여부 메시지를 모델에 추가
+        model.addAttribute("isBasketUpdated", true);
+
+        return "main";
+    }
+
+
+
 
 }
