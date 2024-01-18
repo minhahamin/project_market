@@ -12,10 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -88,4 +85,10 @@ public class BasketService {
     public void deleteItemsByIndices(List<Long> itemIndices) {
         basketRepository.deleteByIdIn(itemIndices);
     }
+
+   /* @Transactional
+    public void deleteAllItemsForMember(MemberEntity member) {
+        Set<BasketEntity> userBaskets = member.getBaskets();
+        basketRepository.deleteAll(userBaskets);
+    }*/
 }

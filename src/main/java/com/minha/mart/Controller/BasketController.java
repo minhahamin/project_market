@@ -100,37 +100,29 @@ public class BasketController {
     }
 
 
-    // 4. 장바구니 전체 삭제
-    @PostMapping("/delete/all")
-    @ResponseBody
-    public ResponseEntity<Map<String, String>> deleteAllItems(@RequestBody Map<String, List<Long>> requestBody) {
-        List<Long> itemIndices = requestBody.get("itemIndices");
-
-        // Perform delete operation in the database using the item indices
-        basketService.deleteItemsByIndices(itemIndices);
-
-        Map<String, String> response = new HashMap<>();
-        response.put("success", "true");
-        return ResponseEntity.ok(response);
-    }
-
-
-
-    // 4. 장바구니 수정
-    @PostMapping("/update")
-    public String updateBasket(@RequestParam List<Long> idx, @RequestParam List<Integer> amount, Model model) {
-        // idx와 amount 리스트의 크기는 동일하다고 가정합니다.
-        for (int i = 0; i < idx.size(); i++) {
-            basketService.updateBasketAmount(idx.get(i), amount.get(i));
+    // 4. 장바구니 수정 & 전체 삭제
+    @PostMapping("/process")
+    public String processBasket(@RequestParam String action,
+                                @RequestParam List<Long> idx,
+                                @RequestParam List<Integer> amount,
+                                Model model,
+                                MemberEntity member) {
+        // Use the 'action' parameter to determine the action to perform
+      /*  if ("deleteAll".equals(action)) {
+            // Handle the deleteAll action
+            basketService.deleteAllItemsForMember(member);
+            model.addAttribute("isAllItemsDeleted", true);
+        }*/  if ("update".equals(action)) {
+            // Handle the update action
+            for (int i = 0; i < idx.size(); i++) {
+                basketService.updateBasketAmount(idx.get(i), amount.get(i));
+            }
+            model.addAttribute("isBasketUpdated", true);
         }
 
-        // 수정 여부 메시지를 모델에 추가
-        model.addAttribute("isBasketUpdated", true);
-
+        // Add necessary model attributes and return the view
         return "main";
     }
-
-
 
 
 }

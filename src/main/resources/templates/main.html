@@ -368,19 +368,27 @@ startAutoSlide();
 
 
 </script>
-<script>
-    // 페이지 로드 시 실행되는 함수
+<!-- 페이지 로드 시 실행되는 함수 -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
     window.onload = function() {
         // 서버에서 전달한 수정 여부 메시지를 확인
-        var isBasketUpdated = [[${isBasketUpdated}]] ;
+        var isBasketUpdated = [[${isBasketUpdated}]];
+        // 서버에서 전달한 삭제 여부 메시지를 확인
+        var isAllItemsDeleted = [[${isAllItemsDeleted}]];
 
         // 수정 여부에 따라 알림 창을 띄움
         if (isBasketUpdated) {
             alert("장바구니가 수정되었습니다.");
-
+        }
+        // 삭제 여부에 따라 알림 창을 띄움
+        if (isAllItemsDeleted) {
+            alert("모든 상품이 성공적으로 삭제되었습니다.");
         }
     };
+    /*]]>*/
 </script>
+
 
 </body>
 
