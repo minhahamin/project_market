@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>창업 가이드</title>
+    <style>
+        body{
+       margin: 0 auto;
+    }
+    .header {
+        text-align: right;
+        color: grey;
+        font-size: 13px;
+        margin: 10px 65px;
+    }
+    .header a {
+        margin-right: 10px;
+    }
+
+    .navbar.scrolled {
+          position: fixed;
+          margin-left: -5px;
+          line-height: 50px;
+          left: 0;
+          width: 100%;
+          height: 100px;
+          margin-top: -40px;
+          background-color: #fff;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+          z-index: 1000;
+      }
+      .navbar{
+          display : flex;
+          width: 1300px;
+          height: 80px;
+          line-height: 50px;
+          margin-left : 110px;
+          background-color: transparent;
+          position: relative; /* z-index를 위해 필요 */
+          z-index: 1000; /* 높은 z-index 값으로 설정 */
+
+          justify-content: space-between;
+          transition: background-color 0.3s, box-shadow 0.3s; /* 부드러운 전환 효과 */
+
+
+      }
+      .navbar img{
+          width: 190px;
+          height: 130px;
+          margin-top: -11px;
+      }
+      .dropdown{
+          cursor: pointer;
+      }
+      /* 상위 ul 태그에 대한 스타일 */
+      .navbar > ul {
+          list-style-type: none; /* 리스트 불릿 제거 */
+          display: flex; /* Flexbox 사용 */
+          justify-content: center; /* 중앙 정렬 */
+          padding: 0;
+      }
+
+      /* li 태그에 대한 스타일 */
+      .navbar > ul > li {
+          position: relative; /* 드롭다운 메뉴 위치 설정을 위함 */
+          margin: 0 60px; /* 좌우 마진 추가 */
+          list-style-type: none; /* 리스트 불릿 제거 */
+
+      }
+
+      /* 드롭다운 메뉴 기본 스타일 */
+      .navbar li ul {
+          display: none;
+          position: absolute;
+          top: 100%; /* .navbar의 하단에 위치하도록 설정 */
+          background-color: #f9f9f9;
+          min-width: 175px;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.15);
+          padding: 0;
+          margin:0;
+          list-style-type: none; /* 리스트 불릿 제거 */
+      }
+      .navbar ul li ul li a {
+          line-height: 30px;
+          height: 30px;
+      }
+
+
+      /* 드롭다운 메뉴 항목 스타일 */
+      .navbar li ul li a {
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+          background-color: #eeeee;
+      }
+
+      /* 드롭다운 메뉴 항목 호버 스타일 */
+      .navbar li ul li a:hover {
+          background-color: #FFCD4B;
+          color: white;
+      }
+
+      /* 상위 메뉴 항목에 마우스를 올렸을 때 드롭다운 메뉴 표시 */
+      .navbar > ul > li:hover > ul {
+          display: block;
+      }
+      </style>
+    </head>
+
+    <body>
+    <div class="header">
+        <!-- 로그인 상태일 때 -->
+        <span th:if="${session.loginID != null}">
+            <span th:text="${session.loginID}"></span>
+            <a th:href="@{/basket/basketList/{idx}(idx=${session.loginID})}">장바구니</a>
+            <a th:href="@{/member/mypage}">마이페이지</a>
+            <a href="/member/logout">로그아웃</a>
+        </span>
+
+
+        <!-- 로그아웃 상태일 때 -->
+        <a th:if="${session.loginID == null}" href="/member/login" >로그인</a>
+
+        <a>고객센터</a>
+        <a>채용안내</a>
+        <a>전자계약시스템</a>
+    </div>
+
+    <div class="navbar">
+        <img src="http://192.168.70.200/세이치즈.png" alt="세이치즈">
+        <ul class="dropdown">
+            <li>세이치즈마켓 소개
+                <ul>
+                    <li><a href="#">세이치즈마켓 특징</a></li>
+                </ul>
+            </li>
+            <li>상품
+                <ul>
+                    <li><a href="event.html">행사 상품</a></li>
+                    <li><a href="#">차별화 상품</a></li>
+                    <li><a href="#">Fresh Food</a></li>
+                </ul>
+            </li>
+            <li>매장찾기
+            </li>
+            <li>서비스
+                <ul>
+                    <li><a href="#">App 서비스</a></li>
+                    <li><a href="#">생활 서비스</a></li>
+                    <li><a href="#">제휴 서비스</a></li>
+                </ul>
+            </li>
+            <li>이벤트
+                <ul>
+                    <li><a href="#">진행중인 이벤트</a></li>
+                </ul>
+            </li>
+            <li>창업안내
+                <ul>
+                    <li><a href="#">창업 가이드</a></li>
+                    <li><a href="#">창업 상담</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div style="background-color: #F9FAFB;  padding-bottom: 120px;">
+        <div>
+            <h1 style="margin-left: 110px; padding-top: 20px;"> 창업 가이드 </h1>
+            <span style="color: grey;  font-size: 20px; margin-left: 110px; ">창업 상담부터 교육까지 늘 세이치즈마켓이 함께합니다.</span>
+            <h2 style="margin-left: 110px; padding-top: 50px;">창업 절차</h2>
+            <div style="border: 1px solid #F2F3F3; width: 1100px; margin-left: 110px; margin-bottom: 50px;"></div>
+            <div style="display: flex;">
+                <div style="margin-left: 140px;">
+                    <div>
+                        <img src="https://www.emart24.co.kr/assets/assets/imgs/business/phoneqna.png" style="width: 240px; height: 240px;">
+                    </div>
+                    <div style="margin-left: 50px;">
+                        <div style="margin-left: 50px;">STEP 1</div>
+                        <div style="margin-left: 25px;  font-size: 20px; margin-top: 20px; font-weight: bold;">창업 설명회 <br> 및 상담 신청</div>
+                    </div>
+                </div>
+
+                <div style="margin-left: 140px;">
+                    <div>
+                        <img src="https://www.emart24.co.kr/assets/assets/imgs/business/messenger.png" style="width: 240px; height: 240px;">
+                    </div>
+                    <div style="margin-left: 50px;">
+                        <div style="margin-left: 50px;">STEP 2</div>
+                        <div style="margin-left: 50px; font-size: 20px; margin-top: 20px; font-weight: bold;">상담 및 </div>
+                         <div style="margin-left: 10px; font-size: 20px; font-weight: bold;">정보공개서 교부</div>
+                    </div>
+                </div>
+
+                <div style="margin-left: 140px;">
+                    <div>
+                        <img src="https://www.emart24.co.kr/assets/assets/imgs/business/aggr.png" style="width: 240px; height: 240px;">
+                    </div>
+                    <div style="margin-left: 50px;">
+                        <div style="margin-left: 50px;">STEP 3</div>
+                        <div style="margin-left: 40px; font-size: 20px; margin-top: 20px; font-weight: bold;">입지선정
+                              <br>및 점포소개</div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; margin-top: 70px;">
+                <div style="margin-left: 140px;">
+                    <div>
+                        <img src="https://www.emart24.co.kr/assets/assets/imgs/business/licence.png" style="width: 240px; height: 240px;">
+                    </div>
+                    <div style="margin-left: 50px;">
+                        <div style="margin-left: 50px;">STEP 4</div>
+                        <div style="margin-left: 20px; font-size: 20px; margin-top: 20px; font-weight: bold;">가맹계약 체결
+                             <br>(전자계약시스템)</div>
+                    </div>
+                </div>
+                <div style="margin-left: 140px;">
+                    <div>
+                        <img src="https://www.emart24.co.kr/assets/assets/imgs/business/startupStudy.png" style="width: 240px; height: 240px;">
+                    </div>
+                    <div style="margin-left: 50px;">
+                        <div style="margin-left: 50px;">STEP 5</div>
+                        <div style="margin-left: 20px; font-size: 20px; margin-top: 20px; font-weight: bold;">가맹점주 교육</div>
+                    </div>
+                </div>
+                <div style="margin-left: 140px;">
+                    <div>
+                        <img src="https://www.emart24.co.kr/assets/assets/imgs/business/standardEmart.png" style="width: 240px; height: 240px;">
+                    </div>
+                    <div style="margin-left: 50px;">
+                        <div style="margin-left: 50px;">STEP 6</div>
+                        <div style="margin-left: 50px; font-size: 20px; margin-top: 20px; font-weight: bold;">오픈</div>
+                        <div style="margin-left: -6px; font-size: 20px; font-weight: bold;">(인테리어 및 개점)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h1 style="margin-left: 110px;  margin-top: 100px;"> 가맹교육 </h1>
+            <div style="border: 1px solid #F2F3F3; width: 1100px; margin-left: 110px; margin-bottom: 50px;"></div>
+            <div style="display:flex;">
+                <div style="margin-right: -30px;">
+                    <div style="margin-left: 110px;">
+                        <img src="https://www.emart24.co.kr/assets/assets/imgs/business/learn.png" style="width: 500px; border-radius: 20px;">
+                    </div>
+
+                </div>
+
+                <div>
+                    <div style="margin-left: 110px;">
+                        <img src="https://www.emart24.co.kr/assets/assets/imgs/business/learn2.png" style="width: 500px; border-radius: 20px;">
+                    </div>
+
+                </div>
+            </div>
+            <div style="background-color: white; width: 1100px; height:80px; margin-left: 110px; line-height: 80px; border-radius: 40px; margin-top: 15px; border: 1px solid #F2F3F3;">
+                <span style="margin-left: 20px; ">경영주님들은 세이치즈마켓의 가맹 입문 교육을 통해 점포 운영에 대한 기본기를 습득하고 점포 관리 전문가로 거듭 나실 수 있습니다.</span>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <script>
+
+        // 스크롤 이벤트 리스너 추가
+       window.addEventListener('scroll', function() {
+     var navbar = document.querySelector('.navbar');
+     // 스크롤 위치에 따라 .navbar의 클래스를 토글
+     if (window.pageYOffset > 100) { // 100px 이상 스크롤 되었을 때
+       navbar.classList.add('scrolled');
+     } else {
+       navbar.classList.remove('scrolled');
+     }
+    });
+
+
+    </script>
+    </body>
+<footer style="background-color: #F4F4F4; height: 100%;">
+    <div style="width: 1000px; margin-left: 280px; padding: 30px;">
+        <div style="color: grey;">
+            개인정보 처리방침 |
+            영상정보기기 운영 관리 방침 |
+            이용약관 |
+            회사소식 |
+            고객센터 |
+            CSR경영 |
+            사이트맵 |
+
+            패밀리사이트 +
+        </div>
+        <br>
+        <div style="display: flex; color: grey;">
+            (주) 세이치즈 마켓
+            <div style="margin-left: 500px;">
+                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsYutube.png"></button>
+                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsInsta.png">
+                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsFacebook.png">
+                <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsTiktok.png">
+            </div>
+        </div>
+        <br>
+        <br>
+        <div style="color: grey;">
+            대표이사: 홍민하 / 사업자등록번호: 100-00-00000 <br>
+            서울특별시 성동구 성수동 2가 281-4 푸조비즈타워 / <br>
+            고객센터: 02-5678-1234 / Fax: 02-1234-5678 <br>
+            COPYRIGHT (C) EMART24.ALL RIGHT RESERVED <br>
+        </div>
+    </div>
+</footer>
+    </html>

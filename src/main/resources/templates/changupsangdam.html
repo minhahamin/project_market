@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>창업 상담 홈</title>
+  <style>
+    body{
+   margin: 0 auto;
+}
+.header {
+    text-align: right;
+    color: grey;
+    font-size: 13px;
+    margin: 10px 65px;
+}
+.header a {
+    margin-right: 10px;
+}
+
+.navbar.scrolled {
+      position: fixed;
+      margin-left: -5px;
+      line-height: 50px;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      margin-top: -40px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      z-index: 1000;
+  }
+  .navbar{
+      display : flex;
+      width: 1300px;
+      height: 80px;
+      line-height: 50px;
+      margin-left : 110px;
+      background-color: transparent;
+      position: relative; /* z-index를 위해 필요 */
+      z-index: 1000; /* 높은 z-index 값으로 설정 */
+
+      justify-content: space-between;
+      transition: background-color 0.3s, box-shadow 0.3s; /* 부드러운 전환 효과 */
+
+
+  }
+  .navbar img{
+      width: 190px;
+      height: 130px;
+      margin-top: -11px;
+  }
+  .dropdown{
+      cursor: pointer;
+  }
+  /* 상위 ul 태그에 대한 스타일 */
+  .navbar > ul {
+      list-style-type: none; /* 리스트 불릿 제거 */
+      display: flex; /* Flexbox 사용 */
+      justify-content: center; /* 중앙 정렬 */
+      padding: 0;
+  }
+
+  /* li 태그에 대한 스타일 */
+  .navbar > ul > li {
+      position: relative; /* 드롭다운 메뉴 위치 설정을 위함 */
+      margin: 0 60px; /* 좌우 마진 추가 */
+      list-style-type: none; /* 리스트 불릿 제거 */
+
+  }
+
+  /* 드롭다운 메뉴 기본 스타일 */
+  .navbar li ul {
+      display: none;
+      position: absolute;
+      top: 100%; /* .navbar의 하단에 위치하도록 설정 */
+      background-color: #f9f9f9;
+      min-width: 175px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.15);
+      padding: 0;
+      margin:0;
+      list-style-type: none; /* 리스트 불릿 제거 */
+  }
+  .navbar ul li ul li a {
+      line-height: 30px;
+      height: 30px;
+  }
+
+
+  /* 드롭다운 메뉴 항목 스타일 */
+  .navbar li ul li a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      background-color: #eeeee;
+  }
+
+  /* 드롭다운 메뉴 항목 호버 스타일 */
+  .navbar li ul li a:hover {
+      background-color: #FFCD4B;
+      color: white;
+  }
+
+  /* 상위 메뉴 항목에 마우스를 올렸을 때 드롭다운 메뉴 표시 */
+  .navbar > ul > li:hover > ul {
+      display: block;
+  }
+.faq-container {
+            cursor: pointer;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            width: 1200px;
+        }
+
+        .faq-container:hover {
+            background-color: #e5e5e5;
+        }
+       .faq-container img {
+            margin-right: 10px;
+            width: 25px; /* 이미지 크기 조절 */
+            height: 25px;
+        }
+
+        .faq-container span {
+            line-height: -20px;
+        }
+        .answer {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+    .answer img {
+            margin-right: 10px;
+            width: 25px; /* 이미지 크기 조절 */
+            height: 25px;
+    }
+
+    .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 999; /* 모달 창을 가장 위로 올리기 */
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 800px;
+            width: 80%;
+            max-height: 80%;
+            overflow: hidden;
+
+            padding: 20px;
+            text-align: center;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .thumbnail {
+            cursor: pointer;
+        }
+    /* 스타일링은 여기에 추가 */
+        .thumbnail-container {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px; /* 이미지의 크기에 따라 조절하세요 */
+            height: 60px;
+            opacity: 0; /* 기본적으로는 숨김 */
+            transition: opacity 0.3s ease-in-out; /* 부드러운 효과를 위한 transition */
+        }
+
+
+        .thumbnail-container:hover .play-icon {
+            opacity: 1; /* 호버 상태일 때 보이게 함 */
+        }
+
+
+  </style>
+</head>
+<body>
+<div class="header">
+  <!-- 로그인 상태일 때 -->
+  <span th:if="${session.loginID != null}">
+            <span th:text="${session.loginID}"></span>
+            <a th:href="@{/basket/basketList/{idx}(idx=${session.loginID})}">장바구니</a>
+            <a th:href="@{/member/mypage}">마이페이지</a>
+            <a href="/member/logout">로그아웃</a>
+        </span>
+
+
+  <!-- 로그아웃 상태일 때 -->
+  <a th:if="${session.loginID == null}" href="/member/login" >로그인</a>
+
+  <a>고객센터</a>
+  <a>채용안내</a>
+  <a>전자계약시스템</a>
+</div>
+
+<div class="navbar">
+  <img src="http://192.168.70.200/세이치즈.png" alt="세이치즈">
+  <ul class="dropdown">
+    <li>세이치즈마켓 소개
+      <ul>
+        <li><a href="#">세이치즈마켓 특징</a></li>
+      </ul>
+    </li>
+    <li>상품
+      <ul>
+        <li><a href="event.html">행사 상품</a></li>
+        <li><a href="#">차별화 상품</a></li>
+        <li><a href="#">Fresh Food</a></li>
+      </ul>
+    </li>
+    <li>매장찾기
+    </li>
+    <li>서비스
+      <ul>
+        <li><a href="#">App 서비스</a></li>
+        <li><a href="#">생활 서비스</a></li>
+        <li><a href="#">제휴 서비스</a></li>
+      </ul>
+    </li>
+    <li>이벤트
+      <ul>
+        <li><a href="#">진행중인 이벤트</a></li>
+      </ul>
+    </li>
+    <li>창업안내
+      <ul>
+        <li><a href="#">창업 가이드</a></li>
+        <li><a href="#">창업 상담</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<div style="background-color: #F9FAFB;  padding-bottom: 120px;">
+  <div>
+    <h1 style="margin-left: 110px; padding-top: 20px;"> 창업 상담 홈 </h1>
+    <span style="color: grey;  font-size: 20px; margin-left: 110px; ">세이치즈마켓 창업에 대한 궁금증을 모두 해결해 드립니다.</span>
+    <h3 style="font-size: 27px; margin-left:700px;"> 창업 FAQ </h3>
+    <div class="faq-container" onclick="toggleAnswer(this)" style="margin-left: 110px;">
+      <div>
+       <img src="https://www.emart24.co.kr/assets/assets/imgs/quest.png"> <span>24시간 창업상담이 가능한가요?</span>
+      </div>
+      <div class="answer">
+        <img src="https://www.emart24.co.kr/assets/assets/imgs/answer.png"> 24시간 챗봇을 통해 기본 상담이 가능합니다. <br>
+        <br>
+        그밖의 상세 상담은 평일 09:00~17:00에 문의 남겨주신 순서대로 상담해드리겠습니다. <br>
+        (이외 시간 및 주말, 공휴일에는 상세 상담이 불가합니다.) <br>
+      </div>
+    </div>
+    <div class="faq-container" onclick="toggleAnswer(this)"  style="margin-left: 110px;">
+      <div>
+        <img src="https://www.emart24.co.kr/assets/assets/imgs/quest.png"> <span>창업하고 싶은데 점포 자리는 어떻게 알아봐야 하나요?</span>
+      </div>
+      <div class="answer">
+        <img src="https://www.emart24.co.kr/assets/assets/imgs/answer.png"> 문의 주시면 각 지역 개발 담당자가 개점 지역부터 투자금, 개점 시기 등 창업에 관한 모든 것을 개별적으로 상담해드립니다.
+        <br>
+        문의전화 02-6916-1500 <br>
+
+      </div>
+    </div>
+
+    <div class="faq-container" onclick="toggleAnswer(this)" style="margin-left: 110px;">
+      <div>
+        <img src="https://www.emart24.co.kr/assets/assets/imgs/quest.png"> <span>편의점 운영 경험이 전혀 없는데 괜찮을까요?</span>
+      </div>
+      <div class="answer">
+        <img src="https://www.emart24.co.kr/assets/assets/imgs/answer.png">
+        점포 오픈 전 운영 전반에 대한 이론 및 실습 교육을 실시하며 오픈 이후에도 개점 담당 직원이 1:1 동행 근무를 통해 개점시 발생할 수 있는 여러가지 문제 해결을 도와드립니다.
+        또한 본사 점포 관리자 SM (sales manager)이 정기적으로 점포를 방문하여 경영주님과의 상담을 통해 점포 운영을 지원하고 있습니다.
+
+      </div>
+    </div>
+    <div class="faq-container" onclick="toggleAnswer(this)" style="margin-left: 110px;">
+      <div>
+        <img src="https://www.emart24.co.kr/assets/assets/imgs/quest.png"> <span>24시간, 365일 영업을 꼭 해야 하나요?</span>
+      </div>
+      <div class="answer">
+        <img src="https://www.emart24.co.kr/assets/assets/imgs/answer.png">
+        영업 일수 및 영업 시간에 대한 제한이 없으며 점포의 입지, 상권의 특성에 맞게 설정해 운영이 가능하나 최초 계약 체결시 합의된 영업 시간과 영업 일수는 준수해 주셔야 합니다.
+
+      </div>
+    </div>
+    <div class="faq-container" onclick="toggleAnswer(this)" style="margin-left: 110px;">
+      <div>
+        <img src="https://www.emart24.co.kr/assets/assets/imgs/quest.png"> <span>점포 근무자(파트타이머)는 직접 채용해야 하나요?</span>
+      </div>
+      <div class="answer">
+        <img src="https://www.emart24.co.kr/assets/assets/imgs/answer.png">
+
+        <span>점포 규모 및 상권에 따라 적정 인원을 제안해 드릴 수 있으나 점포 운영에 필요한 인력은 경영주님이 직접 채용하셔야 합니다.
+          또한 채용사이트에 세이치즈마켓 채용 전용관을 운영중입니다.</span>
+
+      </div>
+    </div>
+  </div>
+  <div style="display: flex; margin-left:90px; margin-top: 100px;">
+    <div>
+      <img src="https://www.emart24.co.kr/assets/assets/imgs/imgTellthree.png" style="width: 240px; height: 160px;">
+    </div>
+
+    <div>
+      <h2>전화문의</h2>
+      <span style="color:grey; font-size: 20px;">상담원을 통해 더욱 상세한 내용을 듣고<br> 싶다면 전화로 문의해주세요.<br>
+      운영시간 09시 ~ 18시</span> <br><br>
+      <span style="font-weight: bold; color: #FAC74D; font-size: 20px;">고객센터 02.1234.5678</span>
+    </div>
+    <div style="margin-left: 60px;">
+      <img src="https://www.emart24.co.kr/assets/assets/imgs/kakaoBubble.png" style="width: 240px; height: 160px;">
+    </div>
+
+    <div>
+      <h2>카카오톡 문의</h2>
+      <span style="color:grey; font-size: 20px;">간편하게 문의하고 싶다면, 카카오톡 <br> 으로 지금 바로
+      문의해주세요</span>
+    </div>
+  </div>
+  <div style="margin-left: 110px; margin-top: 130px;">
+    <h2>창업 성공기</h2>
+    <div style="display:flex;">
+      <div class="thumbnail-container">
+        <img src="https://www.emart24.co.kr/image/NDk3MDY=" class="thumbnail" style="cursor:pointer" onclick="openModal('https://www.youtube.com/d90ca978-dcdc-4a28-a7b7-d6f489a92e8a')">
+        <img src="https://i0.wp.com/www.worldmissioncentre.com/wp-content/uploads/icons/youtube-icon-flat-red-play-button-logo-vector.png?fit=800%2C800&ssl=1" class="play-icon">
+        <div style="margin-top: 20px;">
+          <span style="font-size: 18px;">세이치즈마켓 하이브리드 시스템 정복기 <br></span>
+          <span style="font-size: 15px; color: grey;">하이&브리드 이야기</span>
+        </div>
+      </div>
+      <div style="margin-left: 80px;" class="thumbnail-container">
+        <img src="https://www.emart24.co.kr/image/NDE4OTc=" class="thumbnail" style="cursor:pointer" onclick="openModal('https://www.youtube.com/d90ca978-dcdc-4a28-a7b7-d6f489a92e8a')">
+        <img src="https://i0.wp.com/www.worldmissioncentre.com/wp-content/uploads/icons/youtube-icon-flat-red-play-button-logo-vector.png?fit=800%2C800&ssl=1" class="play-icon">
+        <div style="margin-top: 20px;">
+          <span style="font-size: 18px;">대구강북점 아르바이트 출신 경영주 스토리<br></span>
+           <span style="font-size: 15px; color: grey;"> 처음부터 사장을 하려던건 아닌데...</span>
+        </div>
+      </div>
+      <div style="margin-left: 80px;" class="thumbnail-container">
+        <img src="https://www.emart24.co.kr/image/MzQ4NTk=" class="thumbnail" style="cursor:pointer" onclick="openModal('https://www.youtube.com/d90ca978-dcdc-4a28-a7b7-d6f489a92e8a')">
+        <img src="https://i0.wp.com/www.worldmissioncentre.com/wp-content/uploads/icons/youtube-icon-flat-red-play-button-logo-vector.png?fit=800%2C800&ssl=1" class="play-icon">
+        <div style="margin-top: 20px;">
+          <span style="font-size:18px; ">브랜드편의점 3사 전환기 <br> </span>
+          <span style="font-size: 15px; color: grey;">이마트24로 바꾼거요? 신의 한수 였죠!!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 모달 창 -->
+<div id="myModal" class="modal" onclick="closeModal()">
+  <div class="modal-content" onclick="event.stopPropagation();">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <iframe width="750" height="500" id="youtubeFrame" ></iframe>
+  </div>
+</div>
+
+<script>
+
+  // 스크롤 이벤트 리스너 추가
+ window.addEventListener('scroll', function() {
+var navbar = document.querySelector('.navbar');
+// 스크롤 위치에 따라 .navbar의 클래스를 토글
+if (window.pageYOffset > 100) { // 100px 이상 스크롤 되었을 때
+ navbar.classList.add('scrolled');
+} else {
+ navbar.classList.remove('scrolled');
+}
+});
+
+
+</script>
+<script>
+  function toggleAnswer(element) {
+            var answer = element.querySelector('.answer');
+            answer.style.display = answer.style.display === 'none' ? 'block' : 'none';
+        }
+
+
+
+
+
+
+
+        function openModal(videoUrl) {
+            var modal = document.getElementById('myModal');
+            var iframe = document.getElementById('youtubeFrame');
+
+            iframe.src = videoUrl;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            var modal = document.getElementById('myModal');
+            var iframe = document.getElementById('youtubeFrame');
+
+            iframe.src = '';
+            modal.style.display = 'none';
+        }
+
+</script>
+</body>
+<footer style="background-color: #F4F4F4; height: 100%;">
+  <div style="width: 1000px; margin-left: 280px; padding: 30px;">
+    <div style="color: grey;">
+      개인정보 처리방침 |
+      영상정보기기 운영 관리 방침 |
+      이용약관 |
+      회사소식 |
+      고객센터 |
+      CSR경영 |
+      사이트맵 |
+
+      패밀리사이트 +
+    </div>
+    <br>
+    <div style="display: flex; color: grey;">
+      (주) 세이치즈 마켓
+      <div style="margin-left: 500px;">
+        <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsYutube.png"></button>
+        <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsInsta.png">
+        <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsFacebook.png">
+        <img style="border-radius: 40px; border: none; background-color: white; width: 30px; height: 30px;" src="https://www.emart24.co.kr/assets/assets/imgs/snsTiktok.png">
+      </div>
+    </div>
+    <br>
+    <br>
+    <div style="color: grey;">
+      대표이사: 홍민하 / 사업자등록번호: 100-00-00000 <br>
+      서울특별시 성동구 성수동 2가 281-4 푸조비즈타워 / <br>
+      고객센터: 02-5678-1234 / Fax: 02-1234-5678 <br>
+      COPYRIGHT (C) EMART24.ALL RIGHT RESERVED <br>
+    </div>
+  </div>
+</footer>
+</html>
