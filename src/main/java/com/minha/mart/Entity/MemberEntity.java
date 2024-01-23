@@ -36,7 +36,7 @@ public class MemberEntity implements Serializable {
     private String email;
     private Date birth;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private Set<BasketEntity> baskets;
 
 /*

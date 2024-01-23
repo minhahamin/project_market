@@ -101,5 +101,16 @@ public class MemberService {
         return memberRepository.findByUserid(userid)
                 .orElseThrow(() -> new EntityNotFoundException("Member not found with userid: " + userid));
     }
+    // 회원 탈퇴 메서드
+    public boolean deleteMember(Long idx) {
+        try {
+            memberRepository.deleteById(idx);
+            return true; // 삭제 성공
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false; // 삭제 실패
+        }
+    }
+
 
 }

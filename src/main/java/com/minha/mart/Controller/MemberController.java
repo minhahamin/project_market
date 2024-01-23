@@ -1,8 +1,10 @@
 package com.minha.mart.Controller;
 
 import com.minha.mart.DTO.MemberDTO;
+import com.minha.mart.Entity.MemberEntity;
 import com.minha.mart.Service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -82,7 +84,30 @@ public class MemberController {
         memberService.infoupdate(idx, memberDTO);
         return "redirect:/member/mypage";
     }
+    // 회원 삭제 엔드포인트
+    @PostMapping("/member/delete/{idx}")
+    public String deleteMember(@PathVariable Long idx, Model model, HttpSession session) {
+        boolean success = memberService.deleteMember(idx);
 
+        if (success) {
+            // 세션 무효화
+            session.invalidate();
+            model.addAttribute("deleteMessage", "회원 탈퇴되었습니다. 다음에 또 찾아주세요 :)");
+        } else {
+            model.addAttribute("deleteMessage", "회원 탈퇴에 실패했습니다.");
+        }
+
+        return "main";
+    }
+    @GetMapping("/member/changupguide")
+    public String changupguide(){return "changupguide";}
+
+    @GetMapping("/member/changupsangdam")
+    public String changupsangdam(){return "changupsangdam";}
+
+
+    @GetMapping ("/member/jaehuservice")
+    public String jaehuservice(){return "jaehuservice";}
 
 
 }

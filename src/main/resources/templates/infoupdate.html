@@ -147,6 +147,8 @@
       font-weight: bold;
       width: 160px;
       height: 50px;
+      border-radius: 30px;
+      color: white;
   }
   .info-cancel{
       background-color:#84868A;
@@ -156,11 +158,19 @@
       color: white;
       width: 160px;
       height: 50px;
+      border-radius: 30px;
+
+  }
+  .info-cancel a{
+    text-decoration: none;
+    color: black;
+    padding: 10px;
   }
   .info-update2{
       margin-left: 545px;
       margin-top: 60px;
       margin-bottom: 50px;
+
   }
 </style>
 <body>
@@ -177,9 +187,6 @@
     <!-- 로그아웃 상태일 때 -->
     <a th:if="${session.loginID == null}" href="/member/login" >로그인</a>
 
-    <a>고객센터</a>
-    <a>채용안내</a>
-    <a>전자계약시스템</a>
 
 </div>
 
@@ -188,16 +195,13 @@
     <ul class="dropdown">
         <li>세이치즈마켓 소개
             <ul>
-                <li><a href="#">브랜드 스토리</a></li>
-                <li><a href="#">브랜드 리소스 센터</a></li>
-                <li><a href="#">브랜드 갤러리</a></li>
+                <li><a th:href="@{/goods/saycheesemarket}">세이치즈마켓 특징</a></li>
             </ul>
         </li>
         <li>상품
             <ul>
                 <li><a th:href="@{/goods/event}">행사 상품</a></li>
                 <li><a th:href="@{/goods/different}">차별화 상품</a></li>
-                <li><a href="#">Fresh Food</a></li>
             </ul>
         </li>
         <li>매장찾기
@@ -206,7 +210,7 @@
             <ul>
                 <li><a href="#">App 서비스</a></li>
                 <li><a href="#">생활 서비스</a></li>
-                <li><a href="#">제휴 서비스</a></li>
+                <li><a th:href="@{/member/jaehuservice}">제휴 서비스</a></li>
             </ul>
         </li>
         <li>이벤트
@@ -216,15 +220,12 @@
         </li>
         <li>창업안내
             <ul>
-                <li><a href="#">세이치즈마켓 특징</a></li>
-                <li><a href="#">창업 가이드</a></li>
-                <li><a href="#">창업 설명회</a></li>
-                <li><a href="#">창업 상담</a></li>
+                <li><a th:href="@{/member/changupguide}">창업 가이드</a></li>
+                <li><a th:href="@{/member/changupsangdam}">창업 상담</a></li>
             </ul>
         </li>
     </ul>
 </div>
-
     <div class="info-update">
         <div><h2>회원정보 수정</h2></div>
         <form th:action="@{/member/infoupdate/{idx}(idx=${updateMember.idx})}" method="post">
@@ -248,9 +249,19 @@
                     <input type="submit" class="info-update-button" value="회원정보 수정">
                     <button class="info-cancel"><a href="/member/mypage">취소</a></button>
                 </div>
+
             </div>
         </form>
+        <form th:action="@{/member/delete/{idx}(idx=${updateMember.idx})}" method="post">
+            <div style="margin-left: 680px; margin-top: -10px;">
+                <button type="submit">회원탈퇴</button>
+            </div>
+        </form>
+
     </div>
+<div>
+
+</div>
 <script>
 
     // 스크롤 이벤트 리스너 추가
@@ -263,7 +274,10 @@
    navbar.classList.remove('scrolled');
  }
 });
+
+
 </script>
+
 </body>
 <footer style="background-color: #F4F4F4; height: 100%; margin-top: 200px;">
     <div style="width: 1000px; margin-left: 280px; padding: 30px;">

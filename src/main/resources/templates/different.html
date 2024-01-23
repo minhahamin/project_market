@@ -118,10 +118,11 @@ gap: 10px; /* 셀 사이의 간격 */
 padding: 10px; /* 컨테이너 패딩 */
 text-align: center; /* 텍스트 중앙 정렬 */
 margin-top: 30px;
+
 }
 
 .container .grid-img {
-border: 1px solid black; /* 각 그리드 셀에 테두리 추가 */
+
 display: flex;
 justify-content: center; /* 이미지를 가운데 정렬 */
 align-items: center; /* 이미지를 중앙 정렬 */
@@ -202,9 +203,6 @@ object-fit: cover; /* 이미지가 셀에 꽉 차도록 설정 */
   <!-- 로그아웃 상태일 때 -->
   <a th:if="${session.loginID == null}" href="/member/login" >로그인</a>
 
-  <a>고객센터</a>
-  <a>채용안내</a>
-  <a>전자계약시스템</a>
 </div>
 
 <div class="navbar">
@@ -212,16 +210,13 @@ object-fit: cover; /* 이미지가 셀에 꽉 차도록 설정 */
   <ul class="dropdown">
     <li>세이치즈마켓 소개
       <ul>
-        <li><a href="#">브랜드 스토리</a></li>
-        <li><a href="#">브랜드 리소스 센터</a></li>
-        <li><a href="#">브랜드 갤러리</a></li>
+        <li><a th:href="@{/goods/saycheesemarket}">세이치즈마켓 특징</a></li>
       </ul>
     </li>
     <li>상품
       <ul>
-        <li><a href="event.html">행사 상품</a></li>
-        <li><a href="#">차별화 상품</a></li>
-        <li><a href="#">Fresh Food</a></li>
+        <li><a th:href="@{/goods/event}">행사 상품</a></li>
+        <li><a th:href="@{/goods/different}">차별화 상품</a></li>
       </ul>
     </li>
     <li>매장찾기
@@ -230,7 +225,7 @@ object-fit: cover; /* 이미지가 셀에 꽉 차도록 설정 */
       <ul>
         <li><a href="#">App 서비스</a></li>
         <li><a href="#">생활 서비스</a></li>
-        <li><a href="#">제휴 서비스</a></li>
+        <li><a th:href="@{/member/jaehuservice}">제휴 서비스</a></li>
       </ul>
     </li>
     <li>이벤트
@@ -240,10 +235,8 @@ object-fit: cover; /* 이미지가 셀에 꽉 차도록 설정 */
     </li>
     <li>창업안내
       <ul>
-        <li><a href="#">세이치즈마켓 특징</a></li>
-        <li><a href="#">창업 가이드</a></li>
-        <li><a href="#">창업 설명회</a></li>
-        <li><a href="#">창업 상담</a></li>
+        <li><a th:href="@{/member/changupguide}">창업 가이드</a></li>
+        <li><a th:href="@{/member/changupsangdam}">창업 상담</a></li>
       </ul>
     </li>
   </ul>
@@ -266,7 +259,7 @@ object-fit: cover; /* 이미지가 셀에 꽉 차도록 설정 */
 <div>
   <input type="search" placeholder=" 상품이름을 검색해보세요" style="margin-left: 100px; margin-top: 20px; width: 500px; height: 40px; border-radius: 30px; border: 1px solid;"> <input type="submit" value="검색" style="background-color: #FFCD4B; color: white; font-weight: bold; border: none; width: 100px; height: 40px; border-radius: 30px; margin-left: 30px;"></div>
 <div style="margin-left: 100px; margin-top: 20px;"> <button style="background-color: #FFCD4B; color: white; font-weight: bold; border: none; width: 50px; height: 40px; border-radius: 30px;"> 전체 </button> <button style="background-color: #FFCD4B; color: white; font-weight: bold; border: none; width: 70px; height: 40px; border-radius: 30px;  margin-left: 10px;"> 더클리프 </button></div>
-<div class="container" style=" border: 1px solid black;">
+<div class="container">
   <div th:each="product2: ${productList2}">
     <div class="grid-img" >
       <a th:href="@{/goods/detail/{idx}(idx=${product2.idx})}">
